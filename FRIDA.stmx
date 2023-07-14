@@ -650,7 +650,7 @@
 				<connect2 to="Population.Observed_warming_in_1980" from="Climate.Surface_Temperature_Anomaly_1980"/>
 			</module>
 			<isee:placeholder name="Calibrated Variables">
-				<eqn>Climate.Surface_Temperature_Anomaly + Supply.GDP + Population.GDP_per_person + Population.Population + Demand.government_spending + Demand.consumption_share_of_GDP + Demand.total_savings + Supply.investment_in_private_capital + Demand.savings_share_of_GDP + Supply.investment_share_of_GDP + Labor.Workers_Share_of_Output + Labor.Unemployment_Rate + Labor.workforce + Population.Aged_1_to_20_years + Population.Aged_20_to_40_years + Population.Aged_40_to_60_years + Population.Aged_60_to_80_years + Population.total_deaths + Population.Births + Population.fertility + Energy.renewable_electricity_production + Energy.fossil_electricity_production + Energy.Renewable_Electricity_Capacity + Energy.Fossil_Electricity_Capacity + Energy.electricity_production + Energy.demand_for_electricity + Energy.energy_use_per_person + Energy.CO2_from_energy_and_industry + Energy.CO2_emissions_per_person + Climate.CO2_emissions + Climate.CH4_emissions + Climate.N2O_emissions + Climate.CO2_concentration_in_atm_PPM + Climate.CH4_concentration_in_atm_PPM + Climate.N2O_concentration_in_atm_PPM + Climate.forcing_from_CO2 + Climate.forcing_from_CH4 + Climate.forcing_from_N2O + Food_and_land_use.fertilizer_use</eqn>
+				<eqn>Climate.Surface_Temperature_Anomaly + Supply.GDP + Population.GDP_per_person + Population.Population + Demand.government_spending + Demand.consumption_share_of_GDP + Demand.total_savings + Supply.investment_in_private_capital + Demand.savings_share_of_GDP + Supply.investment_share_of_GDP + Labor.Workers_Share_of_Output + Labor.Unemployment_Rate + Labor.workforce + Population.Aged_1_to_20_years + Population.Aged_20_to_40_years + Population.Aged_40_to_60_years + Population.Aged_60_to_80_years + Population.total_deaths + Population.Births + Population.fertility + Energy.renewable_electricity_production + Energy.fossil_electricity_production + Energy.Renewable_Electricity_Capacity + Energy.Fossil_Electricity_Capacity + Energy.electricity_production + Energy.demand_for_electricity + Energy.energy_use_per_person + Energy.CO2_from_energy_and_industry + Energy.CO2_emissions_per_person + Climate.CO2_emissions + Climate.CH4_emissions + Climate.N2O_emissions + Climate.CO2_concentration_in_atm_PPM + Climate.CH4_concentration_in_atm_PPM + Climate.N2O_concentration_in_atm_PPM + Climate.forcing_from_CO2 + Climate.forcing_from_CH4 + Climate.forcing_from_N2O + Food_and_land_use.fertilizer_use + Food_and_land_use.Forest_land + Food_and_land_use.crop_production + Food_and_land_use.Cropland</eqn>
 			</isee:placeholder>
 		</variables>
 		<views>
@@ -699,7 +699,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="1024" page_height="784" isee:page_cols="2" isee:page_rows="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="1034" page_height="794" isee:page_cols="2" isee:page_rows="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="11pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -913,7 +913,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="1024" page_height="784" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="1034" page_height="794" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="12.51pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1092,7 +1092,8 @@
 		</views>
 	</model>
 	<isee:controls>
-		<isee:control priority="interactive" name="Food_and_land_use.CO2_release_per_ha_of_forest_cut" value="549.995781567505"/>
+		<isee:control priority="interactive" name="Food_and_land_use.CO2_release_per_ha_of_forest_cut" value="549.302765755326"/>
+		<isee:control priority="interactive" name="Food_and_land_use.normal_crop_land_expansion_rate" value="0.00725658932814274"/>
 	</isee:controls>
 </xmile>
 
