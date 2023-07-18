@@ -5,7 +5,7 @@
 		<name>Food and land use</name>
 		<uuid>1ce42919-b116-4c1c-a487-83c4df48992b</uuid>
 		<vendor>isee systems, inc.</vendor>
-		<product version="3.4" isee:build_number="3012" isee:saved_by_v1="true" lang="en">Stella Architect</product>
+		<product version="3.4" isee:build_number="3020" isee:saved_by_v1="true" lang="en">Stella Architect</product>
 	</header>
 	<sim_specs isee:sim_duration="0" isee:run_prefix="Run" isee:simulation_delay="0" isee:restore_on_start="false" isee:save_interval="1" method="Euler" time_units="Year" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:loop_scores="false" isee:loop_exhaustive_allowed="1000">
 		<start>1980</start>
@@ -29,9 +29,6 @@
 			<eqn/>
 			<alias>ha</alias>
 			<alias>hectare</alias>
-		</unit>
-		<unit name="Per Year">
-			<eqn>1/Years</eqn>
 		</unit>
 		<unit name="G">
 			<eqn>Giga</eqn>
@@ -175,58 +172,18 @@
 			<aux name="crop production" access="output">
 				<doc>Calibration data from:
 Food and Agriculture Organization of the United Nations (2023)</doc>
-				<eqn>average_crop_yield*Agricultural_Land</eqn>
+				<eqn>average_crop_yield*Cropland</eqn>
 				<units>Mtcrop/year</units>
 			</aux>
-			<aux name="Agricultural Land 1980">
+			<aux name="Crop Land 1980">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>1449.92456105823</eqn>
+				<eqn>1420.0253538 {FAOSTAT,  Land Use/Land Cover}</eqn>
 				<units>Mha</units>
 			</aux>
-			<stock name="Agricultural Land">
-				<doc>Calibration data from:
-Food and Agriculture Organization of the United Nations (2023)</doc>
-				<eqn>Agricultural_Land_1980</eqn>
-				<inflow>forest_land_entering_agricultural_land</inflow>
-				<inflow>unused_land_entering_agriculture</inflow>
-				<outflow>urban_expansion</outflow>
-				<outflow>agricultural_land_loss</outflow>
-				<units>Mha</units>
-			</stock>
 			<aux name="Crop use per person">
 				<eqn>crop_production/Population</eqn>
 				<units>tcrop/(p*Year)</units>
 			</aux>
-			<aux name="old growth removal">
-				<eqn>Old_Growth_Forest_Land*old_growth_removal_rate</eqn>
-				<units>Mha/year</units>
-			</aux>
-			<stock name="Old Growth Forest Land">
-				<eqn>Old_Growth_Forest_Land_1980</eqn>
-				<outflow>new_forestry_land</outflow>
-				<units>Mha</units>
-			</stock>
-			<aux name="old growth removal rate">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change</doc>
-				<eqn>0.004</eqn>
-				<units>1/year</units>
-			</aux>
-			<aux name="agriculture\nland erosion rate">
-				<eqn>agriculture_land_erosion_rate_1980*effect_of_fertilizer_use_on_agriculture_land_erosion_rate</eqn>
-				<units>1/year</units>
-			</aux>
-			<aux name="agriculture\nland erosion rate\n1980">
-				<eqn>0.004</eqn>
-				<units>1/year</units>
-			</aux>
-			<aux name="effect of fertilizer use on\nagriculture land erosion\nrate">
-				<eqn>1+sensitivity_of_agriculture_land_erosion_rate_to_fertilizer_use*(fertilizer_use_per_ha/sustainable_fertilizer_use-1)</eqn>
-				<units>1</units>
-			</aux>
-			<flow name="agricultural\nland loss">
-				<eqn>Agricultural_Land*agriculture_land_erosion_rate</eqn>
-				<units>Mha/year</units>
-			</flow>
 			<aux name="effect of CO2 concentration on\naverage crop yield">
 				<eqn>( 1+sensitivity_of_CO2_concentration_on_average_crop_yield*(CO2_concentration_in_atm_ppm/CO2_concentration_1980-1))</eqn>
 				<units>1</units>
@@ -240,30 +197,13 @@ Ranasinghe R, Ruane AC, Vautard R, Arnell N, Coppola E, Cruz FA, Dessai S, Saifu
 the Average Crop Yield is bolstered slightly in comparison by the increasing concentration of CO2 in the atmosphere due to plantlife respiring CO2 (Kimball et al. 1983). 
 
 Kimball BA, Idso SB. 1983. Increasing atmospheric CO2: effects on crop yield, water use and climate. Agricultural water management 7(1-3): 55-72.</doc>
-				<eqn>desired_crop_yield*Soil_Quality_Index*effect_of_CO2_concentration_on_average_crop_yield*effect_of_surface_temperature_anomaly_on_average_crop_yield</eqn>
+				<eqn>desired_crop_yield*net_effect_of_climate_on_crop_yield</eqn>
 				<units>tcrop/(ha*year)</units>
 			</aux>
-			<aux name="per ha\nCO2 absorption in\nforestry land">
-				<eqn>forest_land*(normal_rate_of_CO2_absorption_in_forestry_land/&quot;UNIT_MtCO2/GtCO2&quot;)</eqn>
-				<units>GtCO2/year</units>
-			</aux>
-			<stock name="Forestry Land">
-				<doc>Calibration data from:
-Food and Agriculture Organization of the United Nations (2023)</doc>
-				<eqn>Forestry_Land_1980</eqn>
-				<inflow>new_forestry_land</inflow>
-				<outflow>forest_land_entering_agricultural_land</outflow>
-				<units>Mha</units>
-			</stock>
 			<aux name="desired crop yield">
-				<eqn>crop_demand/Agricultural_Land</eqn>
+				<eqn>crop_demand/Cropland*1/anticipated_effect_of_climate_on_crop_yield</eqn>
 				<units>tcrop/(ha*year)</units>
 			</aux>
-			<stock name="Soil Quality Index">
-				<eqn>Soil_Quality_Index_1980</eqn>
-				<inflow>change_in_soil_quality</inflow>
-				<units>1</units>
-			</stock>
 			<aux name="crop demand">
 				<doc>Ref for using GDP per person to determine Crop Demand (Tilman et al. 2011)
 
@@ -275,41 +215,6 @@ Tilman D, Balzer C, Hill J, Befort BL. 2011. Global food demand and the sustaina
 				<eqn>crop_production/crop_demand</eqn>
 				<units>1</units>
 			</aux>
-			<flow name="forest land entering\nagricultural land">
-				<eqn>new_agricultural_land*fraction_of_new_agricultural_land_from_forests*Acceptable_loss_of_forestry_land</eqn>
-				<units>Mha/Year</units>
-			</flow>
-			<aux name="Acceptable loss of\nforestry land">
-				<eqn>1-EXP(-fraction_forestry_land_remaining/threshold_fraction_forestry_land_remaining)</eqn>
-				<units>1</units>
-			</aux>
-			<aux name="forest land">
-				<eqn>Old_Growth_Forest_Land+Forestry_Land</eqn>
-				<units>Mha</units>
-			</aux>
-			<aux name="fraction forestry\nland remaining">
-				<eqn>Forestry_Land/Forestry_Land_1980</eqn>
-				<units>1</units>
-			</aux>
-			<aux name="threshold fraction\nforestry land remaining">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change</doc>
-				<eqn>0.4</eqn>
-				<units>1</units>
-			</aux>
-			<aux name="Forestry Land 1980">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change</doc>
-				<eqn>1259.46616838205</eqn>
-				<units>Mha</units>
-			</aux>
-			<aux name="CO2 emissions from\nland cover change" access="output">
-				<doc>Calibration data from:
-Global Carbon Project (Friedlingstein et al. 2022)
-
-Friedlingstein P, O&apos;Sullivan M, Jones MW, Andrew R M, Gregor L, Hauck J, Le Quéré C, Luijkx IT, Olsen, A., Peters GP, Peters W, Pongratz J, Schwingshackl C, Sitch S, Canadell JG, Ciais P, Jackson RB, Alin SR, Alkama R, Arneth A, Arora VK, Bates NR, Becker M, Bellouin N, Bittig H C, Bopp L, Chevallier F, Chini LP, Cronin M, Evans W, Falk S, Feely RA, Gasser T, Gehlen M, Gkritzalis T, Gloege L, Grassi G, Gruber N, Gürses Ö, Harris I, Hefner M, Houghton RA, Hurtt GC, Iida Y, Ilyina T, Jain AK, Liu Z, Marland G, Mayot N, McGrath MJ, Metzl N, Monacci NM, Munro DR, Nakaoka SI, Niwa Y, O&apos;Brien K, Ono T, Palmer PI, Pan N, Pierrot D, Pocock K, Poulter B, Resplandy L, Robertson E, Rödenbeck C, Rodriguez C, Rosan TM, Schwinger J, Séférian R, Shutler JD, Skjelvan I, Steinhoff T, Sun Q, Sutton AJ, Sweeney C, Takao S, Tanhua T, Tans P P, Tian X, Tian H, Tilbrook B, Tsujino H, Tubiello F, van der Werf GR, Walker AP, Wanninkhof R, Whitehead C, Willstrand Wranne A, Wright R, Yuan W, Yue C, Yue X, Zaehle S, Zeng J, Zheng B. 2022. Global Carbon Budget , Earth System Science Data 14: 4811-4900. https://doi.org/10.5194/essd-14-4811-2022, 2022.
-</doc>
-				<eqn>CO2_release_from_forest_cut-per_ha_CO2_absorption_in_forestry_land</eqn>
-				<units>GtCO2/year</units>
-			</aux>
 			<aux name="fertilizer use\nper person">
 				<eqn>(fertilizer_use/Population)*&quot;UNIT_kgN/tN&quot;</eqn>
 				<units>kgN/(p*Years)</units>
@@ -317,35 +222,16 @@ Friedlingstein P, O&apos;Sullivan M, Jones MW, Andrew R M, Gregor L, Hauck J, Le
 			<aux name="fertilizer use" access="output">
 				<doc>Calibration data from:
 Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Computer software]. https://github.com/jnnsbrr/reg_fao_hyde</doc>
-				<eqn>Agricultural_Land*fertilizer_use_per_ha/&quot;UNIT_kgN/tN&quot;</eqn>
+				<eqn>Cropland*fertilizer_use_per_ha/&quot;UNIT_kgN/tN&quot;</eqn>
 				<units>MtN/year</units>
-			</aux>
-			<aux name="sustainable fertilizer\nuse">
-				<doc>Calibration Parameter: fertilizer use &amp; crop production &amp; forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>20</eqn>
-				<units>kgN/(ha*year)</units>
-			</aux>
-			<aux name="sensitivity of agriculture\nland erosion rate to fertilizer use">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>0.02</eqn>
-				<units>1</units>
 			</aux>
 			<aux name="fertilizer use per\nha">
 				<eqn>fertilizer_use_per_ha_1980*effect_of_crop_yield_on_fertilizer_use_per_ha/fertilizer_productivity_index</eqn>
 				<units>kgN/(ha*year)</units>
 			</aux>
 			<aux name="rate of change\nin fertilizer\nproductivity">
-				<eqn>0.00766817199705875</eqn>
+				<eqn>0.00696391774976467</eqn>
 				<units>1/year</units>
-			</aux>
-			<aux name="rate of change\nin soil quality">
-				<eqn>0+sensitivity_of_effect_of_fertilizer_use_per_ha_on_rate_of_change_in_soil_quality*(fertilizer_use_per_ha/sustainable_fertilizer_use-1)</eqn>
-				<units>1/year</units>
-			</aux>
-			<aux name="sensitivity of\neffect of fertilizer use\nper ha on rate of change\nin soil quality">
-				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>-0.001</eqn>
-				<units>1/yr</units>
 			</aux>
 			<aux name="fertilizer productivity\nindex">
 				<eqn>EXP(rate_of_change_in_fertilizer_productivity*(TIME-1980))</eqn>
@@ -360,49 +246,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 				<eqn>0.05</eqn>
 				<units>1</units>
 			</aux>
-			<aux name="indicated urban land">
-				<eqn>Population*urban_land_per_person</eqn>
-				<units>Mha</units>
-			</aux>
-			<stock name="Urban Land">
-				<eqn>Population*urban_land_per_person</eqn>
-				<inflow>urban_expansion</inflow>
-				<units>Mha</units>
-			</stock>
-			<aux name="urban development time">
-				<eqn>10</eqn>
-				<units>year</units>
-			</aux>
-			<flow name="change in soil quality">
-				<eqn>rate_of_change_in_soil_quality*Soil_Quality_Index</eqn>
-				<units>Per Year</units>
-			</flow>
-			<aux name="urban land per person">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>0.05</eqn>
-				<units>ha/p</units>
-			</aux>
-			<stock name="Unused Land">
-				<eqn>Unused_Land_1980</eqn>
-				<inflow>agricultural_land_loss</inflow>
-				<outflow>unused_land_entering_agriculture</outflow>
-				<units>Mha</units>
-			</stock>
-			<aux name="Old Growth Forest Land 1980">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>3000</eqn>
-				<units>Mha</units>
-			</aux>
-			<aux name="Soil Quality Index 1980">
-				<doc>Definition-ally 1</doc>
-				<eqn>1</eqn>
-				<units>1</units>
-			</aux>
-			<flow name="new forestry land">
-				<eqn>old_growth_removal</eqn>
-				<units>Mha/Year</units>
-			</flow>
-			<aux name="sensitivity of surface temperature\nanomaly on average crop yield\nand forestry land\nCO2 absorption capabilities">
+			<aux name="sensitivity of surface temperature\nanomaly on average crop yield">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
 				<eqn>-0.0341900270349737</eqn>
 				<units>1</units>
@@ -411,26 +255,6 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
 				<eqn>0.1</eqn>
 				<units>1</units>
-			</aux>
-			<flow name="urban expansion">
-				<doc>FRIDA allows conversion of Unused Land into Agricultural Land (Edgerton 2009; Lambin and Meyfroidt 2011)
-
-Edgerton MD. 2009. Increasing crop productivity to meet global needs for feed, food, and fuel. Plant Physiol 149(1): 7-13. doi: 10.1104/pp.108.130195.
-
-Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, and the looming land scarcity. Proceedings of the national academy of sciences 108(9): 3465-3472. https://doi.org/10.1073/pnas.1100480108.
-
-</doc>
-				<eqn>MAX(0, (indicated_urban_land-Urban_Land)/urban_development_time)</eqn>
-				<units>Mha/Year</units>
-			</flow>
-			<aux name="CO2 release from\nforest cut">
-				<eqn>(old_growth_removal*CO2_release_per_ha_of_old_growth_forest_cut+forest_land_entering_agricultural_land*CO2_release_per_ha_of_new_forest_cut)/&quot;UNIT_MtCO2/GtCO2&quot;</eqn>
-				<units>GtCO2/year</units>
-			</aux>
-			<aux name="CO2 release per ha of old growth\nforest cut">
-				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
-				<eqn>955</eqn>
-				<units>tCO2/ha</units>
 			</aux>
 			<aux name="CO2 concentration in atm ppm" access="input">
 				<units>ppm</units>
@@ -446,29 +270,15 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>ppm</units>
 			</aux>
 			<aux name="effect of surface temperature\nanomaly on average crop yield">
-				<eqn>(1 + sensitivity_of_surface_temperature_anomaly_on_average_crop_yield_and_forestry_land_CO2_absorption_capabilities * (Observed_warming_deg_C/Observed_warming_in_1980-1))</eqn>
+				<eqn>(1 + sensitivity_of_surface_temperature_anomaly_on_average_crop_yield * (Observed_warming_deg_C/Observed_warming_in_1980-1))</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="UNIT kgN/tN">
 				<eqn>1000</eqn>
 				<units>kgN/tN</units>
 			</aux>
-			<aux name="normal rate of CO2 absorption in\nforestry land">
-				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
-				<eqn>1.6</eqn>
-				<units>tCO2/(ha*year)</units>
-			</aux>
-			<aux name="UNIT MtCO2/GtCO2">
-				<eqn>1000</eqn>
-				<units>MtCO2/GtCO2</units>
-			</aux>
-			<aux name="CO2 release per ha of new\nforest cut">
-				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
-				<eqn>160</eqn>
-				<units>tCO2/ha</units>
-			</aux>
-			<aux name="Land Area">
-				<eqn>Unused_Land + Urban_Land + Agricultural_Land + Forestry_Land + Old_Growth_Forest_Land</eqn>
+			<aux name="Habitable Land Area">
+				<eqn>Cropland + Forest_land + Grassland</eqn>
 				<isee:summing/>
 				<units>Mha</units>
 			</aux>
@@ -479,7 +289,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="sensitivity of crop demand to GDP per person gamma">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>1.04303128710768</eqn>
+				<eqn>0.878089789451113</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="Population" access="input">
@@ -491,9 +301,9 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<eqn>5180</eqn>
 				<units>Mtcrop/year</units>
 			</aux>
-			<aux name="Unused Land 1980">
+			<aux name="Grassland 1980">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>7090.47920963631</eqn>
+				<eqn>3200 {FAOSTAT,  Land Use/Land Cover}</eqn>
 				<units>MHa</units>
 			</aux>
 			<aux name="effect of\ncrop yield on fertilizer use\nper ha">
@@ -514,49 +324,185 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<eqn>46</eqn>
 				<units>kgN/(ha*year)</units>
 			</aux>
-			<flow name="unused land\nentering agriculture">
-				<eqn>MIN(new_agricultural_land-forest_land_entering_agricultural_land, max_expansion_of_agricultural_land_into_unused_land)</eqn>
-				<units>Mha/year</units>
-			</flow>
-			<aux name="new agricultural\nland">
-				<eqn>Agricultural_Land*agricultural_land_expansion_rate</eqn>
-				<units>Mha/year</units>
-			</aux>
-			<aux name="fraction of new\nagricultural land\nfrom forests">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>0.455742863358527</eqn>
-				<units>dmnl</units>
-			</aux>
 			<aux name="Observed warming in 1980" access="input">
 				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
 				<units>deg C</units>
 			</aux>
-			<aux name="max expansion of\nagricultural land into unused\nland">
-				<eqn>Unused_Land*unused_land_reclamation_threshold</eqn>
-				<units>Mha/year</units>
-			</aux>
-			<aux name="unused land\nreclamation threshold">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>0.005</eqn>
-				<units>dmnl/year</units>
-			</aux>
-			<aux name="agricultural land expansion rate">
-				<eqn>normal_agricultural_land_expansion_rate*effect_of_crop_balance_on_agricultural_land_expansion_rate</eqn>
-				<units>1/year</units>
-			</aux>
-			<aux name="sensitivity of effect of crop\nbalance on agricultural land\nexpansion rate">
+			<aux name="sensitivity of effect of crop\nbalance on crop land\nexpansion rate">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land &amp; crop production &amp; fertilizer use</doc>
-				<eqn>-6</eqn>
+				<eqn>-1.35217412468033</eqn>
 				<units>1</units>
 			</aux>
-			<aux name="normal agricultural\nland expansion rate">
-				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land &amp; crop production &amp; fertilizer use</doc>
-				<eqn>0.005</eqn>
-				<units>dmnl/year</units>
-			</aux>
-			<aux name="effect of crop balance on agricultural land expansion rate">
-				<eqn>1+sensitivity_of_effect_of_crop_balance_on_agricultural_land_expansion_rate*(crop_balance_with_reserves-1)</eqn>
+			<aux name="effect of crop balance on\ncrop land expansion">
+				<eqn>1+sensitivity_of_effect_of_crop_balance_on_crop_land_expansion_rate*(crop_balance_with_reserves-1)</eqn>
 				<units>dmnl</units>
+			</aux>
+			<aux name="Forest Land 1980">
+				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
+				<eqn>4274.16490217153 {FAOSTAT,  Land Use/Land Cover}</eqn>
+				<units>Mha</units>
+			</aux>
+			<aux name="per ha\nCO2 absorption in\nforestry land">
+				<eqn>Forest_land*(normal_rate_of_CO2_absorption_in_forestry_land/&quot;UNIT_MtCO2/GtCO2&quot;)</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="CO2 emissions from\nland cover change" access="output">
+				<doc>Calibration data from:
+Global Carbon Project (Friedlingstein et al. 2022)
+
+Friedlingstein P, O&apos;Sullivan M, Jones MW, Andrew R M, Gregor L, Hauck J, Le Quéré C, Luijkx IT, Olsen, A., Peters GP, Peters W, Pongratz J, Schwingshackl C, Sitch S, Canadell JG, Ciais P, Jackson RB, Alin SR, Alkama R, Arneth A, Arora VK, Bates NR, Becker M, Bellouin N, Bittig H C, Bopp L, Chevallier F, Chini LP, Cronin M, Evans W, Falk S, Feely RA, Gasser T, Gehlen M, Gkritzalis T, Gloege L, Grassi G, Gruber N, Gürses Ö, Harris I, Hefner M, Houghton RA, Hurtt GC, Iida Y, Ilyina T, Jain AK, Liu Z, Marland G, Mayot N, McGrath MJ, Metzl N, Monacci NM, Munro DR, Nakaoka SI, Niwa Y, O&apos;Brien K, Ono T, Palmer PI, Pan N, Pierrot D, Pocock K, Poulter B, Resplandy L, Robertson E, Rödenbeck C, Rodriguez C, Rosan TM, Schwinger J, Séférian R, Shutler JD, Skjelvan I, Steinhoff T, Sun Q, Sutton AJ, Sweeney C, Takao S, Tanhua T, Tans P P, Tian X, Tian H, Tilbrook B, Tsujino H, Tubiello F, van der Werf GR, Walker AP, Wanninkhof R, Whitehead C, Willstrand Wranne A, Wright R, Yuan W, Yue C, Yue X, Zaehle S, Zeng J, Zheng B. 2022. Global Carbon Budget , Earth System Science Data 14: 4811-4900. https://doi.org/10.5194/essd-14-4811-2022, 2022.
+</doc>
+				<eqn>CO2_release_from_forest_cut-per_ha_CO2_absorption_in_forestry_land</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="CO2 release from\nforest cut">
+				<eqn>(clearing_forests*CO2_release_per_ha_of_forest_cut)/&quot;UNIT_MtCO2/GtCO2&quot;</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="CO2 release per ha of\nforest cut">
+				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
+				<eqn>970.300506715609</eqn>
+				<units>tCO2/ha</units>
+			</aux>
+			<aux name="normal rate of CO2 absorption in\nforestry land">
+				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
+				<eqn>1.6</eqn>
+				<units>tCO2/(ha*year)</units>
+			</aux>
+			<aux name="UNIT MtCO2/GtCO2">
+				<eqn>1000</eqn>
+				<units>MtCO2/GtCO2</units>
+			</aux>
+			<aux name="Albedo forest land">
+				<eqn>0.15</eqn>
+				<units>%</units>
+			</aux>
+			<aux name="Albedo cropland">
+				<eqn>0.22</eqn>
+				<units>%</units>
+			</aux>
+			<aux name="Albedo grassland">
+				<eqn>0.21</eqn>
+				<units>%</units>
+			</aux>
+			<aux name="Albedo">
+				<eqn>(Forest_land * Albedo_forest_land + Grassland * Albedo_grassland + Cropland * Albedo_cropland)/ (Forest_land + Cropland + Grassland)</eqn>
+				<units>%</units>
+			</aux>
+			<stock name="Cropland">
+				<doc>Calibration data from:
+Food and Agriculture Organization of the United Nations (2023)</doc>
+				<eqn>Crop_Land_1980</eqn>
+				<inflow>clearing_forests</inflow>
+				<inflow>clearing_grassland</inflow>
+				<outflow>reforesting_cropland</outflow>
+				<outflow>fallowing_cropland</outflow>
+				<units>Mha</units>
+			</stock>
+			<stock name="Forest land">
+				<doc>Calibration data from:
+Food and Agriculture Organization of the United Nations (2023)</doc>
+				<eqn>Forest_Land_1980</eqn>
+				<inflow>reforesting_cropland</inflow>
+				<inflow>afforestation</inflow>
+				<outflow>clearing_forests</outflow>
+				<outflow>clear_cutting_for_grazing</outflow>
+				<units>Mha</units>
+			</stock>
+			<flow name="clearing forests">
+				<eqn>new_land_for_agriculture*fraction_of_new_crop_land_from_forests</eqn>
+				<non_negative/>
+				<units>Mha/Year</units>
+			</flow>
+			<stock name="Grassland">
+				<eqn>Grassland_1980</eqn>
+				<inflow>fallowing_cropland</inflow>
+				<inflow>clear_cutting_for_grazing</inflow>
+				<outflow>clearing_grassland</outflow>
+				<outflow>afforestation</outflow>
+				<units>Mha</units>
+			</stock>
+			<flow name="clearing grassland">
+				<doc>FRIDA allows conversion of Unused Land into Agricultural Land (Edgerton 2009; Lambin and Meyfroidt 2011)
+
+Edgerton MD. 2009. Increasing crop productivity to meet global needs for feed, food, and fuel. Plant Physiol 149(1): 7-13. doi: 10.1104/pp.108.130195.
+
+Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, and the looming land scarcity. Proceedings of the national academy of sciences 108(9): 3465-3472. https://doi.org/10.1073/pnas.1100480108.
+
+</doc>
+				<eqn>new_land_for_agriculture*(1-fraction_of_new_crop_land_from_forests)</eqn>
+				<non_negative/>
+				<units>Mha/year</units>
+			</flow>
+			<aux name="new land\nfor agriculture">
+				<eqn>(indicated_cropland-Cropland)/time_to_close_cropland_gap</eqn>
+				<units>Mha/year</units>
+			</aux>
+			<aux name="fraction of new\ncrop land\nfrom forests">
+				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
+				<eqn>0.365241698744482</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="indicated cropland">
+				<eqn>Cropland*effect_of_crop_balance_on_crop_land_expansion</eqn>
+				<units>Mha</units>
+			</aux>
+			<flow name="reforesting cropland">
+				<eqn>cropland_depleting*(1-fraction_of_depleting_cropland_to_grassland)</eqn>
+				<non_negative/>
+				<units>Mha/year</units>
+			</flow>
+			<flow name="fallowing cropland">
+				<eqn>cropland_depleting*fraction_of_depleting_cropland_to_grassland</eqn>
+				<non_negative/>
+				<units>Mha/year</units>
+			</flow>
+			<aux name="average time\ncropland in use">
+				<eqn>50</eqn>
+				<units>years</units>
+			</aux>
+			<aux name="cropland depleting">
+				<eqn>Cropland/average_time_cropland_in_use</eqn>
+				<units>Mha/year</units>
+			</aux>
+			<aux name="fraction of depleting\ncropland to grassland">
+				<eqn>0.660020970121813</eqn>
+				<units>dmnl</units>
+			</aux>
+			<flow name="afforestation">
+				<eqn>TIME</eqn>
+				<non_negative/>
+				<gf>
+					<xscale min="1980" max="2100"/>
+					<yscale min="0" max="100"/>
+					<ypts>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</ypts>
+				</gf>
+				<units>Mha/year</units>
+			</flow>
+			<flow name="clear cutting for\ngrazing">
+				<eqn>Grassland*normal_grass_expansion_rate</eqn>
+				<non_negative/>
+				<units>Mha/year</units>
+			</flow>
+			<aux name="normal grass\nexpansion rate">
+				<eqn>0.001</eqn>
+				<units>1/year</units>
+			</aux>
+			<aux name="time to close\ncropland gap">
+				<eqn>3</eqn>
+				<units>years</units>
+			</aux>
+			<aux name="net effect of climate on crop\nyield">
+				<eqn>effect_of_surface_temperature_anomaly_on_average_crop_yield*effect_of_CO2_concentration_on_average_crop_yield</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="anticipated\neffect of climate on crop yield">
+				<eqn>SMTH1(net_effect_of_climate_on_crop_yield, time_to_updated_expectations_for_climate_effect_on_yield)</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="time to updated\nexpectations for climate\neffect on yield">
+				<eqn>3</eqn>
+				<units>years</units>
 			</aux>
 		</variables>
 		<views>
@@ -605,7 +551,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="4" isee:scroll_x="288" isee:scroll_y="780" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="4" isee:scroll_x="313.75" isee:scroll_y="472.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="12.51pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -645,160 +591,32 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 				</style>
 				<aux label_side="right" x="778.333" y="700.667" name="crop demand"/>
-				<stock label_side="center" x="1710.5" y="758.833" width="142" height="47" name="Forestry Land"/>
-				<stock label_side="center" x="1727.5" y="1021.5" width="115" height="59" name="Agricultural Land"/>
-				<stock label_side="center" x="1729.5" y="1256" width="120" height="60" name="Unused Land"/>
-				<stock label_side="center" x="2079" y="1021.5" width="95" height="52" name="Urban Land"/>
-				<stock label_side="center" x="829" y="1621" width="131" height="47" name="Soil Quality Index"/>
-				<flow label_side="right" x="1816.5" y="1168.25" name="agricultural\nland loss">
-					<pts>
-						<pt x="1816.5" y="1080.5"/>
-						<pt x="1816.5" y="1256"/>
-					</pts>
-				</flow>
-				<connector uid="2" angle="275.528">
-					<from>Agricultural_Land</from>
-					<to>agricultural_land_loss</to>
-				</connector>
-				<flow background="white" label_side="right" label_angle="315" x="1763.5" y="913.667" name="forest land entering\nagricultural land">
-					<pts>
-						<pt x="1763.5" y="805.833"/>
-						<pt x="1763.5" y="1021.5"/>
-					</pts>
-				</flow>
-				<flow label_side="left" label_angle="225" x="1960.75" y="1049" name="urban expansion">
-					<pts>
-						<pt x="1842.5" y="1049"/>
-						<pt x="2079" y="1049"/>
-					</pts>
-				</flow>
-				<aux x="2073" y="1104" name="urban development time"/>
-				<connector uid="3" angle="144.293">
-					<from>Urban_Land</from>
-					<to>urban_expansion</to>
-				</connector>
-				<aux label_side="top" x="1578.28" y="1699" name="effect of fertilizer use on\nagriculture land erosion\nrate"/>
-				<aux label_side="right" x="1756.5" y="557.778" name="old growth removal rate"/>
-				<connector uid="4" angle="176.835">
-					<from>old_growth_removal_rate</from>
-					<to>old_growth_removal</to>
-				</connector>
-				<stock label_side="center" x="1704.75" y="619.5" width="177" height="40" name="Old Growth Forest Land"/>
-				<aux label_side="left" x="1646" y="551.667" name="old growth removal"/>
-				<flow label_side="right" x="1797.5" y="709.167" name="new forestry land">
-					<pts>
-						<pt x="1797.5" y="659.5"/>
-						<pt x="1797.5" y="758.833"/>
-					</pts>
-				</flow>
-				<connector uid="5" angle="149.184">
-					<from>Old_Growth_Forest_Land</from>
-					<to>old_growth_removal</to>
-				</connector>
-				<connector uid="7" angle="261.027">
-					<from>old_growth_removal</from>
-					<to>new_forestry_land</to>
-				</connector>
-				<aux label_side="right" label_angle="45" x="1839" y="328" name="CO2 release from\nforest cut"/>
-				<aux x="884" y="1732" name="Soil Quality Index 1980"/>
-				<aux label_side="bottom" x="1331" y="1761" name="sensitivity of agriculture\nland erosion rate to fertilizer use"/>
-				<connector uid="11" angle="14.0755">
-					<from>sensitivity_of_agriculture_land_erosion_rate_to_fertilizer_use</from>
-					<to>effect_of_fertilizer_use_on_agriculture_land_erosion_rate</to>
-				</connector>
-				<aux x="2656" y="782.333" name="Old Growth Forest Land 1980"/>
-				<aux label_side="left" label_angle="135" x="1637" y="651.056" name="Forestry Land 1980"/>
-				<aux x="2667.5" y="926.667" name="Agricultural Land 1980"/>
-				<aux x="1985" y="1309" name="urban land per person"/>
-				<aux label_side="left" label_angle="225" x="863" y="1137" name="average crop yield"/>
-				<aux background="white" label_side="left" x="572.333" y="1001.67" name="fertilizer use"/>
-				<connector uid="15" angle="153.896">
-					<from>urban_development_time</from>
-					<to>urban_expansion</to>
-				</connector>
+				<aux x="2532.5" y="1053.5" name="Crop Land 1980"/>
+				<aux label_side="left" label_angle="225" x="743" y="1153.5" name="average crop yield"/>
+				<aux background="white" label_side="left" x="304.833" y="936.67" name="fertilizer use"/>
 				<aux label_side="right" x="1076" y="988" name="crop production"/>
-				<connector uid="16" angle="213.207">
-					<from>Agricultural_Land</from>
-					<to>crop_production</to>
-				</connector>
-				<aux label_side="right" label_angle="315" x="1081" y="855.667" name="crop balance"/>
-				<flow background="white" x="765.5" y="1641" name="change in soil quality">
-					<pts>
-						<pt x="690" y="1641"/>
-						<pt x="829" y="1641"/>
-					</pts>
-				</flow>
+				<aux label_side="bottom" x="993.5" y="841.667" name="crop balance"/>
 				<aux label_side="top" x="1067" y="772.667" name="desired reserve capacity"/>
 				<connector uid="18" angle="328.736">
 					<from>desired_reserve_capacity</from>
 					<to>crop_balance_with_reserves</to>
 				</connector>
-				<aux label_side="left" label_angle="135" x="572.333" y="1498" name="sustainable fertilizer\nuse"/>
-				<aux background="white" label_side="right" x="668" y="1538" name="rate of change\nin soil quality"/>
-				<connector uid="19" angle="337.309">
-					<from>sustainable_fertilizer_use</from>
-					<to>rate_of_change_in_soil_quality</to>
-				</connector>
-				<aux background="white" x="535.5" y="1541" name="sensitivity of\neffect of fertilizer use\nper ha on rate of change\nin soil quality"/>
-				<connector uid="20" angle="1.29704">
-					<from>sensitivity_of_effect_of_fertilizer_use_per_ha_on_rate_of_change_in_soil_quality</from>
-					<to>rate_of_change_in_soil_quality</to>
-				</connector>
-				<aux label_side="right" x="1985" y="1170" name="indicated urban land"/>
-				<connector uid="26" angle="90">
-					<from>urban_land_per_person</from>
-					<to>indicated_urban_land</to>
-				</connector>
-				<connector uid="27" angle="101.333">
-					<from>indicated_urban_land</from>
-					<to>urban_expansion</to>
-				</connector>
-				<aux label_side="top" x="854" y="899" name="Crop use per person"/>
-				<connector uid="28" angle="313.429">
-					<from>rate_of_change_in_soil_quality</from>
-					<to>change_in_soil_quality</to>
-				</connector>
-				<connector uid="29" angle="91.5254">
-					<from>Soil_Quality_Index</from>
-					<to>change_in_soil_quality</to>
-				</connector>
-				<connector uid="30" angle="47.4026">
-					<from>Soil_Quality_Index</from>
-					<to>average_crop_yield</to>
-				</connector>
-				<connector uid="31" angle="359.049">
-					<from>
-						<alias uid="32"/>
-					</from>
-					<to>effect_of_fertilizer_use_on_agriculture_land_erosion_rate</to>
-				</connector>
-				<aux label_side="right" x="642" y="868.833" name="desired crop yield"/>
-				<connector uid="37" angle="326.38">
-					<from>
-						<alias uid="38"/>
-					</from>
-					<to>desired_crop_yield</to>
-				</connector>
-				<connector uid="41" angle="284.748">
-					<from>
-						<alias uid="38"/>
-					</from>
-					<to>fertilizer_use</to>
-				</connector>
-				<connector uid="45" angle="309.492">
+				<aux label_side="top" x="1151" y="1301.08" name="Crop use per person"/>
+				<aux label_side="bottom" x="642" y="868.833" name="desired crop yield"/>
+				<connector uid="45" angle="289.535">
 					<from>desired_crop_yield</from>
 					<to>average_crop_yield</to>
 				</connector>
 				<aux font_style="italic" font_weight="bold" label_side="top" x="760.333" y="526.167" name="GDP per person k$/p/y"/>
-				<aux font_style="italic" font_weight="bold" label_side="right" label_angle="315" x="1243" y="1364" name="CO2 concentration in atm ppm"/>
-				<aux label_side="right" label_angle="45" x="1151" y="823.667" name="crop balance\nwith reserves"/>
-				<connector uid="61" angle="24.5672">
+				<aux font_style="italic" font_weight="bold" label_side="right" label_angle="315" x="1164.25" y="1571.5" name="CO2 concentration in atm ppm"/>
+				<aux label_side="bottom" x="1151" y="823.667" name="crop balance\nwith reserves"/>
+				<connector uid="61" angle="6.5198">
 					<from>crop_balance</from>
 					<to>crop_balance_with_reserves</to>
 				</connector>
-				<aux font_style="italic" font_weight="bold" x="657" y="1359" name="Observed warming deg C"/>
-				<aux label_side="left" label_angle="225" x="293" y="1204.33" name="fertilizer productivity\nindex"/>
-				<aux background="white" label_side="top" x="226.167" y="1122" name="rate of change\nin fertilizer\nproductivity"/>
+				<aux font_style="italic" font_weight="bold" x="570.75" y="1516.5" name="Observed warming deg C"/>
+				<aux label_side="left" label_angle="225" x="209.25" y="1196.83" name="fertilizer productivity\nindex"/>
+				<aux background="white" label_side="top" x="142.417" y="1114.5" name="rate of change\nin fertilizer\nproductivity"/>
 				<connector uid="74" angle="309.069">
 					<from>rate_of_change_in_fertilizer_productivity</from>
 					<to>fertilizer_productivity_index</to>
@@ -807,97 +625,20 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>fertilizer_productivity_index</from>
 					<to>fertilizer_use_per_ha</to>
 				</connector>
-				<aux label_side="left" x="365" y="1286" name="fertilizer use per\nha"/>
-				<connector uid="77" angle="320.25">
-					<from>fertilizer_use_per_ha</from>
-					<to>rate_of_change_in_soil_quality</to>
-				</connector>
-				<connector uid="78" angle="53.9008">
+				<aux label_side="left" x="281.25" y="1278.5" name="fertilizer use per\nha"/>
+				<connector uid="78" angle="86.0534">
 					<from>fertilizer_use_per_ha</from>
 					<to>fertilizer_use</to>
 				</connector>
-				<connector uid="79" angle="273.576">
-					<from>fertilizer_use_per_ha</from>
-					<to>effect_of_fertilizer_use_on_agriculture_land_erosion_rate</to>
-				</connector>
-				<aux label_side="left" x="1665.17" y="732.167" name="fraction forestry\nland remaining"/>
-				<connector uid="104" angle="109.03">
-					<from>Forestry_Land</from>
-					<to>fraction_forestry_land_remaining</to>
-				</connector>
-				<aux label_side="left" x="1583" y="764.333" name="threshold fraction\nforestry land remaining"/>
-				<aux label_side="bottom" x="1789.5" y="416.667" name="CO2 release per ha of old growth\nforest cut"/>
-				<aux label_side="right" label_angle="45" x="2045" y="313" name="per ha\nCO2 absorption in\nforestry land"/>
-				<aux background="white" label_side="right" label_angle="45" x="1032" y="1213" name="effect of CO2 concentration on\naverage crop yield"/>
-				<aux x="1309" y="1291" name="sensitivity of CO2 concentration on\naverage crop yield"/>
-				<connector uid="108" angle="155.786">
+				<aux background="white" label_side="right" label_angle="45" x="953.25" y="1420.5" name="effect of CO2 concentration on\naverage crop yield"/>
+				<aux x="1230.25" y="1498.5" name="sensitivity of CO2 concentration on\naverage crop yield"/>
+				<connector uid="108" angle="111.15">
 					<from>effect_of_CO2_concentration_on_average_crop_yield</from>
-					<to>average_crop_yield</to>
+					<to>net_effect_of_climate_on_crop_yield</to>
 				</connector>
-				<aux x="895" y="1448" name="sensitivity of surface temperature\nanomaly on average crop yield\nand forestry land\nCO2 absorption capabilities"/>
-				<aux label_side="top" x="1851.5" y="185" name="CO2 emissions from\nland cover change"/>
-				<connector uid="120" angle="95.3557">
-					<from>old_growth_removal</from>
-					<to>CO2_release_from_forest_cut</to>
-				</connector>
-				<connector uid="122" angle="60.8267">
-					<from>CO2_release_per_ha_of_old_growth_forest_cut</from>
-					<to>CO2_release_from_forest_cut</to>
-				</connector>
-				<connector uid="124" angle="189.277">
-					<from>forest_land_entering_agricultural_land</from>
-					<to>CO2_release_from_forest_cut</to>
-				</connector>
-				<connector uid="125" angle="85.0043">
-					<from>CO2_release_from_forest_cut</from>
-					<to>CO2_emissions_from_land_cover_change</to>
-				</connector>
-				<connector uid="126" angle="146.515">
-					<from>per_ha_CO2_absorption_in_forestry_land</from>
-					<to>CO2_emissions_from_land_cover_change</to>
-				</connector>
-				<aux label_side="left" label_angle="225" x="1701.17" y="850.5" name="Acceptable loss of\nforestry land"/>
-				<connector uid="135" angle="289.152">
-					<from>Forestry_Land_1980</from>
-					<to>fraction_forestry_land_remaining</to>
-				</connector>
-				<connector uid="136" angle="314.618">
-					<from>Acceptable_loss_of_forestry_land</from>
-					<to>forest_land_entering_agricultural_land</to>
-				</connector>
-				<connector uid="137" angle="323.901">
-					<from>threshold_fraction_forestry_land_remaining</from>
-					<to>Acceptable_loss_of_forestry_land</to>
-				</connector>
-				<connector uid="138" angle="286.921">
-					<from>fraction_forestry_land_remaining</from>
-					<to>Acceptable_loss_of_forestry_land</to>
-				</connector>
-				<aux label_side="right" x="2039" y="661" name="forest land"/>
-				<connector uid="139" angle="355">
-					<from>Old_Growth_Forest_Land</from>
-					<to>forest_land</to>
-				</connector>
-				<connector uid="140" angle="25.2296">
-					<from>Forestry_Land</from>
-					<to>forest_land</to>
-				</connector>
-				<aux label_side="right" label_angle="315" x="1887" y="1534" name="agriculture\nland erosion rate"/>
-				<aux label_side="left" x="1892" y="1659" name="agriculture\nland erosion rate\n1980"/>
-				<connector uid="141" angle="92.2906">
-					<from>agriculture_land_erosion_rate_1980</from>
-					<to>agriculture_land_erosion_rate</to>
-				</connector>
-				<connector uid="142" angle="77.9052">
-					<from>agriculture_land_erosion_rate</from>
-					<to>agricultural_land_loss</to>
-				</connector>
-				<connector uid="143" angle="14.2761">
-					<from>effect_of_fertilizer_use_on_agriculture_land_erosion_rate</from>
-					<to>agriculture_land_erosion_rate</to>
-				</connector>
-				<aux x="741.333" y="1071" name="fertilizer use\nper person"/>
-				<connector uid="172" angle="337.695">
+				<aux x="808.75" y="1605.5" name="sensitivity of surface temperature\nanomaly on average crop yield"/>
+				<aux x="513.833" y="1004.75" name="fertilizer use\nper person"/>
+				<connector uid="172" angle="341.957">
 					<from>fertilizer_use</from>
 					<to>fertilizer_use_per_person</to>
 				</connector>
@@ -905,7 +646,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>sensitivity_of_CO2_concentration_on_average_crop_yield</from>
 					<to>effect_of_CO2_concentration_on_average_crop_yield</to>
 				</connector>
-				<aux background="white" x="1123" y="1382" name="CO2 concentration 1980"/>
+				<aux background="white" x="1044.25" y="1589.5" name="CO2 concentration 1980"/>
 				<connector uid="188" angle="188.531">
 					<from>CO2_concentration_in_atm_ppm</from>
 					<to>CO2_concentration_1980</to>
@@ -918,49 +659,34 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>CO2_concentration_1980</from>
 					<to>effect_of_CO2_concentration_on_average_crop_yield</to>
 				</connector>
-				<aux background="white" label_side="left" label_angle="135" x="859" y="1278" name="effect of surface temperature\nanomaly on average crop yield"/>
+				<aux background="white" label_side="left" label_angle="135" x="772.75" y="1435.5" name="effect of surface temperature\nanomaly on average crop yield"/>
 				<connector uid="191" angle="21.8503">
 					<from>Observed_warming_deg_C</from>
 					<to>effect_of_surface_temperature_anomaly_on_average_crop_yield</to>
 				</connector>
-				<connector uid="192" angle="88.375">
+				<connector uid="192" angle="73.1776">
 					<from>effect_of_surface_temperature_anomaly_on_average_crop_yield</from>
-					<to>average_crop_yield</to>
+					<to>net_effect_of_climate_on_crop_yield</to>
 				</connector>
-				<aux background="white" x="624" y="1051" name="UNIT kgN/tN"/>
-				<aux background="white" label_side="right" x="2112" y="385" name="normal rate of CO2 absorption in\nforestry land"/>
-				<aux background="white" x="1972" y="406" name="UNIT MtCO2/GtCO2"/>
-				<connector uid="204" angle="51.87">
-					<from>&quot;UNIT_MtCO2/GtCO2&quot;</from>
-					<to>per_ha_CO2_absorption_in_forestry_land</to>
-				</connector>
-				<connector uid="218" angle="149.61">
-					<from>&quot;UNIT_MtCO2/GtCO2&quot;</from>
-					<to>CO2_release_from_forest_cut</to>
-				</connector>
+				<aux background="white" x="396.5" y="984.75" name="UNIT kgN/tN"/>
 				<connector uid="226" angle="101.957">
-					<from>sensitivity_of_surface_temperature_anomaly_on_average_crop_yield_and_forestry_land_CO2_absorption_capabilities</from>
+					<from>sensitivity_of_surface_temperature_anomaly_on_average_crop_yield</from>
 					<to>effect_of_surface_temperature_anomaly_on_average_crop_yield</to>
 				</connector>
-				<aux label_side="bottom" x="1928" y="480.667" name="CO2 release per ha of new\nforest cut"/>
-				<connector uid="229" angle="120.241">
-					<from>CO2_release_per_ha_of_new_forest_cut</from>
-					<to>CO2_release_from_forest_cut</to>
-				</connector>
-				<connector uid="230" angle="158.154">
+				<connector uid="230" angle="283.472">
 					<from>crop_production</from>
 					<to>Crop_use_per_person</to>
 				</connector>
-				<connector uid="231" angle="87.8362">
+				<connector uid="231" angle="119.414">
 					<from>crop_production</from>
 					<to>crop_balance</to>
 				</connector>
-				<aux x="2279.33" y="1040.83" name="Land Area"/>
+				<aux x="2532.5" y="1139.5" name="Habitable Land Area"/>
 				<connector uid="232" angle="350.327">
 					<from>&quot;UNIT_kgN/tN&quot;</from>
 					<to>fertilizer_use_per_person</to>
 				</connector>
-				<connector uid="233" angle="332.882">
+				<connector uid="233" angle="326.763">
 					<from>crop_demand</from>
 					<to>crop_balance</to>
 				</connector>
@@ -982,40 +708,34 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>sensitivity_of_crop_demand_to_GDP_per_person_gamma</from>
 					<to>crop_demand</to>
 				</connector>
-				<aux font_style="italic" font_weight="bold" x="899" y="988" name="Population"/>
-				<connector uid="239" angle="116.822">
+				<aux font_style="italic" font_weight="bold" x="1315.25" y="1438.5" name="Population"/>
+				<connector uid="239" angle="140.082">
 					<from>Population</from>
 					<to>Crop_use_per_person</to>
-				</connector>
-				<connector uid="240" angle="138.534">
-					<from>
-						<alias uid="241"/>
-					</from>
-					<to>indicated_urban_land</to>
 				</connector>
 				<aux label_side="right" label_angle="45" x="832.167" y="551.667" name="crop demand in 1980"/>
 				<connector uid="242" angle="250.135">
 					<from>crop_demand_in_1980</from>
 					<to>crop_demand</to>
 				</connector>
-				<connector uid="244" angle="34.974">
+				<connector uid="244" angle="26.4272">
 					<from>average_crop_yield</from>
 					<to>crop_production</to>
 				</connector>
-				<aux x="2667.5" y="845.667" name="Unused Land 1980"/>
+				<aux x="2532.5" y="979.5" name="Grassland 1980"/>
 				<connector uid="248" angle="308.841">
 					<from>
 						<alias uid="249"/>
 					</from>
 					<to>fertilizer_use</to>
 				</connector>
-				<aux x="490.5" y="1222.33" name="effect of\ncrop yield on fertilizer use\nper ha"/>
+				<aux x="410.5" y="1301.08" name="effect of\ncrop yield on fertilizer use\nper ha"/>
 				<connector uid="251" angle="183.334">
 					<from>effect_of_crop_yield_on_fertilizer_use_per_ha</from>
 					<to>fertilizer_use_per_ha</to>
 				</connector>
-				<aux label_side="right" label_angle="45" x="501.5" y="1149.92" name="sensitivity of\ncrop yield on fertilizer use\nper ha alpha"/>
-				<aux label_side="right" x="568" y="1213" name="sensitivity of\ncrop yield on fertilizer use\nper ha gamma"/>
+				<aux label_side="right" label_angle="45" x="421.5" y="1228.67" name="sensitivity of\ncrop yield on fertilizer use\nper ha alpha"/>
+				<aux label_side="right" x="488" y="1291.75" name="sensitivity of\ncrop yield on fertilizer use\nper ha gamma"/>
 				<connector uid="252" angle="261.362">
 					<from>sensitivity_of_crop_yield_on_fertilizer_use_per_ha_alpha</from>
 					<to>effect_of_crop_yield_on_fertilizer_use_per_ha</to>
@@ -1024,7 +744,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>sensitivity_of_crop_yield_on_fertilizer_use_per_ha_gamma</from>
 					<to>effect_of_crop_yield_on_fertilizer_use_per_ha</to>
 				</connector>
-				<aux label_side="top" x="333.167" y="1161" name="fertilizer use per ha\n1980"/>
+				<aux label_side="top" x="240.417" y="1144.5" width="18" height="18" name="fertilizer use per ha\n1980"/>
 				<connector uid="254" angle="284.287">
 					<from>fertilizer_use_per_ha_1980</from>
 					<to>fertilizer_use_per_ha</to>
@@ -1033,80 +753,20 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>average_crop_yield</from>
 					<to>effect_of_crop_yield_on_fertilizer_use_per_ha</to>
 				</connector>
-				<flow label_side="left" x="1766.5" y="1168.25" name="unused land\nentering agriculture">
-					<pts>
-						<pt x="1766.5" y="1256"/>
-						<pt x="1766.5" y="1080.5"/>
-					</pts>
-				</flow>
-				<aux label_side="top" x="1623" y="1031" name="new agricultural\nland"/>
-				<connector uid="256" angle="198.034">
-					<from>Agricultural_Land</from>
-					<to>new_agricultural_land</to>
-				</connector>
-				<aux label_side="right" label_angle="315" x="1810.75" y="845.667" name="fraction of new\nagricultural land\nfrom forests"/>
-				<connector uid="257" angle="235.206">
-					<from>fraction_of_new_agricultural_land_from_forests</from>
-					<to>forest_land_entering_agricultural_land</to>
-				</connector>
-				<connector uid="258" angle="25.3462">
-					<from>new_agricultural_land</from>
-					<to>forest_land_entering_agricultural_land</to>
-				</connector>
-				<connector uid="259" angle="229.521">
-					<from>forest_land_entering_agricultural_land</from>
-					<to>unused_land_entering_agriculture</to>
-				</connector>
-				<aux font_style="italic" font_weight="bold" x="747.5" y="1412" name="Observed warming in 1980"/>
+				<aux font_style="italic" font_weight="bold" x="661.25" y="1569.5" name="Observed warming in 1980"/>
 				<connector uid="261" angle="50.2365">
 					<from>Observed_warming_in_1980</from>
 					<to>effect_of_surface_temperature_anomaly_on_average_crop_yield</to>
 				</connector>
-				<aux label_side="left" label_angle="225" x="1683.17" y="1341" name="max expansion of\nagricultural land into unused\nland"/>
-				<connector uid="262" angle="250.384">
-					<from>Unused_Land</from>
-					<to>max_expansion_of_agricultural_land_into_unused_land</to>
+				<aux label_side="top" x="1196" y="718.667" name="sensitivity of effect of crop\nbalance on crop land\nexpansion rate"/>
+				<connector uid="267" angle="336.603">
+					<from>sensitivity_of_effect_of_crop_balance_on_crop_land_expansion_rate</from>
+					<to>effect_of_crop_balance_on_crop_land_expansion</to>
 				</connector>
-				<aux x="1748.5" y="1405" name="unused land\nreclamation threshold"/>
-				<connector uid="263" angle="135.589">
-					<from>unused_land_reclamation_threshold</from>
-					<to>max_expansion_of_agricultural_land_into_unused_land</to>
-				</connector>
-				<connector uid="264" angle="83.2379">
-					<from>max_expansion_of_agricultural_land_into_unused_land</from>
-					<to>unused_land_entering_agriculture</to>
-				</connector>
-				<connector uid="266" angle="78.1113">
-					<from>forest_land</from>
-					<to>per_ha_CO2_absorption_in_forestry_land</to>
-				</connector>
-				<aux background="white" label_side="right" x="1449.11" y="961.833" width="17.1667" height="17.1667" name="agricultural land expansion rate"/>
-				<aux label_side="right" label_angle="45" x="1196" y="718.667" name="sensitivity of effect of crop\nbalance on agricultural land\nexpansion rate"/>
-				<connector uid="267" angle="308.29">
-					<from>sensitivity_of_effect_of_crop_balance_on_agricultural_land_expansion_rate</from>
-					<to>effect_of_crop_balance_on_agricultural_land_expansion_rate</to>
-				</connector>
-				<aux label_side="left" label_angle="135" x="1378" y="988" name="normal agricultural\nland expansion rate"/>
-				<aux label_side="right" label_angle="45" x="1346" y="908.667" name="effect of crop balance on agricultural land expansion rate"/>
-				<connector uid="268" angle="331.064">
-					<from>effect_of_crop_balance_on_agricultural_land_expansion_rate</from>
-					<to>agricultural_land_expansion_rate</to>
-				</connector>
-				<connector uid="269" angle="12.4423">
-					<from>normal_agricultural_land_expansion_rate</from>
-					<to>agricultural_land_expansion_rate</to>
-				</connector>
-				<connector uid="270" angle="336.448">
+				<aux label_side="bottom" x="1384.75" y="800.333" name="effect of crop balance on\ncrop land expansion"/>
+				<connector uid="270" angle="5.70064">
 					<from>crop_balance_with_reserves</from>
-					<to>effect_of_crop_balance_on_agricultural_land_expansion_rate</to>
-				</connector>
-				<connector uid="271" angle="320.826">
-					<from>agricultural_land_expansion_rate</from>
-					<to>new_agricultural_land</to>
-				</connector>
-				<connector uid="272" angle="132.94">
-					<from>normal_rate_of_CO2_absorption_in_forestry_land</from>
-					<to>per_ha_CO2_absorption_in_forestry_land</to>
+					<to>effect_of_crop_balance_on_crop_land_expansion</to>
 				</connector>
 				<connector uid="273" angle="321.42">
 					<from>
@@ -1114,29 +774,250 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					</from>
 					<to>fertilizer_use_per_person</to>
 				</connector>
-				<connector uid="275" angle="32.6515">
-					<from>
-						<alias uid="276"/>
-					</from>
-					<to>unused_land_entering_agriculture</to>
+				<aux x="2529.25" y="908.333" name="Forest Land 1980"/>
+				<aux label_side="right" label_angle="45" x="1864.75" y="420.5" name="CO2 release from\nforest cut"/>
+				<aux label_side="bottom" x="1763.5" y="387.5" name="CO2 release per ha of\nforest cut"/>
+				<aux label_side="right" label_angle="45" x="2070.75" y="405.5" name="per ha\nCO2 absorption in\nforestry land"/>
+				<aux label_side="top" x="1972.75" y="293.75" name="CO2 emissions from\nland cover change"/>
+				<connector uid="284" angle="341.948">
+					<from>CO2_release_per_ha_of_forest_cut</from>
+					<to>CO2_release_from_forest_cut</to>
 				</connector>
-				<alias uid="32" x="1268" y="1685" width="18" height="18">
-					<of>sustainable_fertilizer_use</of>
-				</alias>
-				<alias uid="38" x="492.667" y="767" width="45" height="35">
-					<of>Agricultural_Land</of>
-				</alias>
-				<alias font_style="italic" font_weight="bold" uid="241" x="2082" y="1254.67" width="18" height="18">
-					<of>Population</of>
-				</alias>
-				<alias background="white" font_style="italic" label_side="left" uid="249" x="480.667" y="890" width="18" height="18">
+				<connector uid="285" angle="49.5666">
+					<from>CO2_release_from_forest_cut</from>
+					<to>CO2_emissions_from_land_cover_change</to>
+				</connector>
+				<connector uid="286" angle="131.249">
+					<from>per_ha_CO2_absorption_in_forestry_land</from>
+					<to>CO2_emissions_from_land_cover_change</to>
+				</connector>
+				<aux background="white" label_side="right" x="2144.5" y="491.167" name="normal rate of CO2 absorption in\nforestry land"/>
+				<aux background="white" x="1958" y="485.5" name="UNIT MtCO2/GtCO2"/>
+				<connector uid="287" angle="35.357">
+					<from>&quot;UNIT_MtCO2/GtCO2&quot;</from>
+					<to>per_ha_CO2_absorption_in_forestry_land</to>
+				</connector>
+				<connector uid="288" angle="145.122">
+					<from>&quot;UNIT_MtCO2/GtCO2&quot;</from>
+					<to>CO2_release_from_forest_cut</to>
+				</connector>
+				<connector uid="290" angle="130.725">
+					<from>normal_rate_of_CO2_absorption_in_forestry_land</from>
+					<to>per_ha_CO2_absorption_in_forestry_land</to>
+				</connector>
+				<aux x="2524.25" y="545.167" name="Albedo forest land"/>
+				<aux x="2604" y="599.5" name="Albedo cropland"/>
+				<aux x="2706.5" y="589.417" name="Albedo grassland"/>
+				<aux x="2638.75" y="494.25" name="Albedo"/>
+				<connector uid="296" angle="23.9742">
+					<from>Albedo_forest_land</from>
+					<to>Albedo</to>
+				</connector>
+				<connector uid="298" angle="125.447">
+					<from>Albedo_grassland</from>
+					<to>Albedo</to>
+				</connector>
+				<connector uid="301" angle="71.7285">
+					<from>Albedo_cropland</from>
+					<to>Albedo</to>
+				</connector>
+				<stock label_side="center" x="1883" y="623.583" width="150" height="90" name="Forest land"/>
+				<stock label_side="center" x="1886.25" y="888" width="150" height="90" name="Cropland"/>
+				<stock label_side="center" x="1886.25" y="1136.08" width="150" height="90" name="Grassland"/>
+				<flow background="white" label_side="top" x="1901.58" y="784.125" width="21.3333" height="21.3333" name="clearing forests">
+					<pts>
+						<pt x="1912.25" y="713.583"/>
+						<pt x="1912.25" y="888"/>
+					</pts>
+				</flow>
+				<flow label_side="bottom" x="1917.25" y="1063.04" name="clearing grassland">
+					<pts>
+						<pt x="1917.25" y="1136.08"/>
+						<pt x="1917.25" y="978"/>
+					</pts>
+				</flow>
+				<aux label_side="top" x="1809.25" y="844.5" name="new land\nfor agriculture"/>
+				<connector uid="302" angle="169.229">
+					<from>Cropland</from>
+					<to>new_land_for_agriculture</to>
+				</connector>
+				<aux label_side="left" x="1763.5" y="987" name="fraction of new\ncrop land\nfrom forests"/>
+				<connector uid="303" angle="75.1414">
+					<from>new_land_for_agriculture</from>
+					<to>clearing_forests</to>
+				</connector>
+				<aux background="white" label_side="bottom" x="1505.36" y="809.738" width="17.1667" height="17.1667" name="indicated cropland"/>
+				<flow label_side="top" x="2012.75" y="806.792" name="reforesting cropland">
+					<pts>
+						<pt x="2012.75" y="888"/>
+						<pt x="2012.75" y="713.583"/>
+					</pts>
+				</flow>
+				<flow x="2012.75" y="1051.04" name="fallowing cropland">
+					<pts>
+						<pt x="2012.75" y="978"/>
+						<pt x="2012.75" y="1136.08"/>
+					</pts>
+				</flow>
+				<aux x="2279.25" y="992.75" name="average time\ncropland in use"/>
+				<aux x="2236.25" y="908.5" name="cropland depleting"/>
+				<connector uid="304" angle="51.6702">
+					<from>Cropland</from>
+					<to>cropland_depleting</to>
+				</connector>
+				<connector uid="305" angle="117.039">
+					<from>average_time_cropland_in_use</from>
+					<to>cropland_depleting</to>
+				</connector>
+				<aux x="2097.5" y="912.75" name="fraction of depleting\ncropland to grassland"/>
+				<connector uid="306" angle="254.055">
+					<from>cropland_depleting</from>
+					<to>fallowing_cropland</to>
+				</connector>
+				<connector uid="307" angle="238.498">
+					<from>fraction_of_depleting_cropland_to_grassland</from>
+					<to>fallowing_cropland</to>
+				</connector>
+				<connector uid="308" angle="109.983">
+					<from>cropland_depleting</from>
+					<to>reforesting_cropland</to>
+				</connector>
+				<connector uid="309" angle="128.654">
+					<from>fraction_of_depleting_cropland_to_grassland</from>
+					<to>reforesting_cropland</to>
+				</connector>
+				<connector uid="310" angle="52.2631">
+					<from>fraction_of_new_crop_land_from_forests</from>
+					<to>clearing_forests</to>
+				</connector>
+				<connector uid="311" angle="333.685">
+					<from>fraction_of_new_crop_land_from_forests</from>
+					<to>clearing_grassland</to>
+				</connector>
+				<connector uid="312" angle="262.003">
+					<from>new_land_for_agriculture</from>
+					<to>clearing_grassland</to>
+				</connector>
+				<flow isee:segment_with_valve="1" x="2336.25" y="917.875" name="afforestation">
+					<pts>
+						<pt x="2036.25" y="1188.5"/>
+						<pt x="2336.25" y="1188.5"/>
+						<pt x="2336.25" y="647.25"/>
+						<pt x="2033" y="647.25"/>
+					</pts>
+				</flow>
+				<flow isee:segment_with_valve="1" x="1595" y="920.375" name="clear cutting for\ngrazing">
+					<pts>
+						<pt x="1883" y="652.25"/>
+						<pt x="1595" y="652.25"/>
+						<pt x="1595" y="1188.5"/>
+						<pt x="1886.25" y="1188.5"/>
+					</pts>
+				</flow>
+				<connector uid="313" angle="153.744">
+					<from>Grassland</from>
+					<to>clear_cutting_for_grazing</to>
+				</connector>
+				<aux x="1470.19" y="1146.25" name="normal grass\nexpansion rate"/>
+				<connector uid="314" angle="61.0766">
+					<from>normal_grass_expansion_rate</from>
+					<to>clear_cutting_for_grazing</to>
+				</connector>
+				<connector uid="315" angle="181.318">
+					<from>Cropland</from>
+					<to>indicated_cropland</to>
+				</connector>
+				<connector uid="316" angle="7.71959">
+					<from>indicated_cropland</from>
+					<to>new_land_for_agriculture</to>
+				</connector>
+				<aux x="1648.21" y="747.071" name="time to close\ncropland gap"/>
+				<connector uid="317" angle="328.826">
+					<from>time_to_close_cropland_gap</from>
+					<to>new_land_for_agriculture</to>
+				</connector>
+				<connector uid="318" angle="8.77934">
+					<from>effect_of_crop_balance_on_crop_land_expansion</from>
+					<to>indicated_cropland</to>
+				</connector>
+				<connector uid="322" angle="273.962">
+					<from>
+						<alias uid="323"/>
+					</from>
+					<to>Albedo</to>
+				</connector>
+				<connector uid="324" angle="231.978">
+					<from>
+						<alias uid="325"/>
+					</from>
+					<to>Albedo</to>
+				</connector>
+				<connector uid="326" angle="313.226">
+					<from>
+						<alias uid="327"/>
+					</from>
+					<to>Albedo</to>
+				</connector>
+				<connector uid="328" angle="62.1412">
+					<from>Forest_land</from>
+					<to>per_ha_CO2_absorption_in_forestry_land</to>
+				</connector>
+				<connector uid="329" angle="95.8314">
+					<from>clearing_forests</from>
+					<to>CO2_release_from_forest_cut</to>
+				</connector>
+				<connector uid="330" angle="255.174">
+					<from>
+						<alias uid="331"/>
+					</from>
+					<to>fertilizer_use</to>
+				</connector>
+				<connector uid="332" angle="194.105">
+					<from>Cropland</from>
+					<to>crop_production</to>
+				</connector>
+				<connector uid="333" angle="344.876">
+					<from>
+						<alias uid="331"/>
+					</from>
+					<to>desired_crop_yield</to>
+				</connector>
+				<aux x="852.5" y="1268.75" name="net effect of climate on crop\nyield"/>
+				<connector uid="334" angle="133.534">
+					<from>net_effect_of_climate_on_crop_yield</from>
+					<to>average_crop_yield</to>
+				</connector>
+				<aux x="852.5" y="928.25" name="anticipated\neffect of climate on crop yield"/>
+				<connector uid="335" angle="34.2869">
+					<from>net_effect_of_climate_on_crop_yield</from>
+					<to>anticipated_effect_of_climate_on_crop_yield</to>
+				</connector>
+				<aux x="818.75" y="812.5" name="time to updated\nexpectations for climate\neffect on yield"/>
+				<connector uid="336" angle="292.932">
+					<from>time_to_updated_expectations_for_climate_effect_on_yield</from>
+					<to>anticipated_effect_of_climate_on_crop_yield</to>
+				</connector>
+				<connector uid="337" angle="162.926">
+					<from>anticipated_effect_of_climate_on_crop_yield</from>
+					<to>desired_crop_yield</to>
+				</connector>
+				<alias background="white" font_style="italic" label_side="left" uid="249" x="213.167" y="825" width="18" height="18">
 					<of>&quot;UNIT_kgN/tN&quot;</of>
 				</alias>
-				<alias font_style="italic" font_weight="bold" label_side="top" uid="274" x="659" y="1003.5" width="18" height="18">
+				<alias font_style="italic" font_weight="bold" label_side="top" uid="274" x="431.5" y="937.25" width="18" height="18">
 					<of>Population</of>
 				</alias>
-				<alias font_style="italic" uid="276" x="1619" y="1248" width="18" height="18">
-					<of>new_agricultural_land</of>
+				<alias font_style="italic" uid="323" x="2603.75" y="296.25" width="45" height="35">
+					<of>Forest_land</of>
+				</alias>
+				<alias font_style="italic" uid="325" x="2711.25" y="355.25" width="45" height="35">
+					<of>Cropland</of>
+				</alias>
+				<alias font_style="italic" uid="327" x="2506.75" y="360.25" width="45" height="35">
+					<of>Grassland</of>
+				</alias>
+				<alias font_style="italic" uid="331" x="308.75" y="696.25" width="45" height="35">
+					<of>Cropland</of>
 				</alias>
 			</view>
 		</views>
