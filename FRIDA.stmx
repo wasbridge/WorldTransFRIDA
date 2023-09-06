@@ -5,9 +5,9 @@
 		<name>FRIDA</name>
 		<uuid>eed773d1-f4f7-4725-8d05-452b96d4f2dc</uuid>
 		<vendor>isee systems, inc.</vendor>
-		<product version="3.4" isee:build_number="3020" isee:saved_by_v1="true" lang="en">Stella Architect</product>
+		<product version="3.4.1" isee:build_number="3048" isee:saved_by_v1="true" lang="en">Stella Architect</product>
 	</header>
-	<sim_specs isee:sim_duration="0" isee:run_prefix="Run" isee:simulation_delay="0" isee:restore_on_start="false" method="RK4" time_units="Year" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:loop_scores="false" isee:loop_exhaustive_allowed="1000">
+	<sim_specs isee:sim_duration="0" isee:run_prefix="Run" isee:simulation_delay="0" isee:restore_on_start="false" method="RK4" time_units="Year" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="false" isee:loop_scores="false" isee:loop_exhaustive_allowed="1000">
 		<start>1980</start>
 		<stop>2100</stop>
 		<dt reciprocal="true">8</dt>
@@ -21,7 +21,7 @@
 	<isee:time_formats default_format="Builtin">
 		<isee:time_format name="Builtin" type="adaptive"/>
 	</isee:time_formats>
-	<default_format/>
+	<default_format scale_by="1"/>
 	<data>
 		<import isee:overwrite="true" orientation="horizontal" resource="r../Data/Population Initialization.csv"/>
 		<import enabled="false" frequency="on_demand" isee:overwrite="true" orientation="horizontal" resource="r../Data/Scenario Parameters.xlsx" type="Excel" worksheet="Reduced Feedback"/>
@@ -30,7 +30,7 @@
 	<isee:sensi_specs_list active_index="0">
 		<isee:sensi_specs name="Sensitivity" method="sobol_sequence" runs="0"/>
 	</isee:sensi_specs_list>
-	<isee:optimizer_specs_list active_index="5">
+	<isee:optimizer_specs_list active_index="4">
 		<isee:optimizer_specs name="Economic Calibration" method="Powell" use_additional_starts_file="false" additional_starts="0" report_interval="1" confidence_range="0" maxiter="0">
 			<isee:parameter name="Demand.income_tax_rate_workers" min="0.02" max="0.4" scaling="100"/>
 			<isee:parameter name="Demand.income_tax_rate_owners" min="0" max="0.5" scaling="100"/>
@@ -116,10 +116,24 @@
 			<isee:payoff name="Energy Payoff" action="min" inactive="true"/>
 		</isee:optimizer_specs>
 		<isee:optimizer_specs name="Food and Land Use Calibration" method="Powell" use_additional_starts_file="false" additional_starts="0" report_interval="1" confidence_range="0" maxiter="0">
-			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_demand_to_GDP_per_person_alpha" min="0" max="2" scaling="100"/>
-			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_demand_to_GDP_per_person_gamma" min="0" max="2" scaling="100"/>
-			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_yield_on_fertilizer_use_per_ha_alpha" min="0" max="2" scaling="100"/>
-			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_yield_on_fertilizer_use_per_ha_gamma" min="0" max="2" scaling="100"/>
+			<isee:parameter name="Food_and_land_use.elasticity_of_crop_demand_for_direct_consumption_to_GDP_per_person" min="0" max="0.5" scaling="1000"/>
+			<isee:parameter name="Food_and_land_use.elasticity_of_livestock_demand_to_GDP_per_person" min="0" max="0.5" scaling="1000"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_effect_of_crop_balance_on_crop_land_expansion_rate" min="-5" max="0" scaling="100"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_yield_to_fertilizer_use" min="0" max="5" scaling="100"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_demand_on_per_ha_fertilizer_use" min="0" max="5" scaling="100"/>
+			<isee:parameter name="Food_and_land_use.rate_of_change_in_fertilizer_productivity" min="0" max="0.1" scaling="10000"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_crops_required_for_livestock_to_livestock_yield" min="0" max="1" scaling="1000"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_surface_temperature_anomaly_on_average_crop_yield" min="-1" max="0" scaling="1000"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_CO2_concentration_on_average_crop_yield" min="0" max="1" scaling="1000"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_effect_of_livestock_balance_on_livestock_yield" min="-30" max="0"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_effect_of_livestock_balance_on_grassland_expansion_rate" min="-0.1" max="0" scaling="10000"/>
+			<isee:parameter name="Food_and_land_use.fraction_of_grassland_for_grazing" min="0.6" max="0.8" scaling="10000"/>
+			<isee:parameter name="Food_and_land_use.normal_rate_of_livestock_intensification" min="0" max="0.05" scaling="10000"/>
+			<isee:parameter name="Food_and_land_use.fraction_of_new_cropland_from_forests" min="0.2" max="0.8" scaling="1000"/>
+			<isee:parameter name="Food_and_land_use.fraction_of_depleting_cropland_to_grassland" min="0.2" max="0.8" scaling="1000"/>
+			<isee:parameter name="Food_and_land_use.normal_rate_of_CO2_absorption_in_forestry_land" min="0" max="2" scaling="100"/>
+			<isee:parameter name="Food_and_land_use.cropland_expansion_time" min="1" max="5" scaling="1000"/>
+			<isee:parameter name="Food_and_land_use.CO2_release_per_ha_of_forest_cut" min="100" max="1000" scaling="0.1"/>
 			<isee:payoff name="Food and Land Use Payoff" action="min"/>
 		</isee:optimizer_specs>
 		<isee:optimizer_specs name="Full Calibration" method="Powell" use_additional_starts_file="false" additional_starts="0" report_interval="1" confidence_range="0" maxiter="0">
@@ -190,10 +204,8 @@
 			<isee:parameter name="Climate.base_level_water_vapor_forcing" min="0" max="5" scaling="100"/>
 			<isee:parameter name="Climate.extra_d2" min="-1" max="1" scaling="100000"/>
 			<isee:parameter name="Climate.extra_d3" min="-1" max="1" scaling="100000"/>
-			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_demand_to_GDP_per_person_alpha" min="0" max="2" scaling="100"/>
-			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_demand_to_GDP_per_person_gamma" min="0" max="2" scaling="100"/>
-			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_yield_on_fertilizer_use_per_ha_alpha" min="0" max="2" scaling="100"/>
-			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_yield_on_fertilizer_use_per_ha_gamma" min="0" max="2" scaling="100"/>
+			<isee:parameter name="Food_and_land_use.elasticity_of_crop_demand_for_direct_consumption_to_GDP_per_person" min="0" max="2" scaling="100"/>
+			<isee:parameter name="Food_and_land_use.sensitivity_of_crop_demand_on_per_ha_fertilizer_use" min="0" max="2" scaling="100"/>
 			<isee:parameter name="Climate.sensitivity_of_effect_of_observed_warming_on_water_vapor_forcing_beta" min="0" max="5" scaling="100"/>
 			<isee:payoff name="Full Payoff" action="min"/>
 			<isee:payoff name="Food and Land Use Payoff" action="min" inactive="true"/>
@@ -223,25 +235,25 @@
 			<isee:payoff_element name="Energy.energy_use_per_person" weight="328.874" compare_name="Energy.energy_use_per_person" compare_run="Calibration Data" tolerance="0" type="ls"/>
 			<isee:payoff_element name="Energy.electricity_production" weight="0.00000192285" compare_name="Energy.electricity_production" compare_run="Calibration Data" tolerance="0" type="ls"/>
 		</isee:payoff_specs>
-		<isee:payoff_specs name="Population Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="Calibration Data">
-			<isee:payoff_element name="Population.Population" weight="0.000802415" compare_name="Population.Population" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_0_years" weight="0.0303451" compare_name="Population.Aged_0_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_1_to_20_years" weight="0.000251012" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_20_to_40_years" weight="0.00125008" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_40_to_60_years" weight="0.00353599" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_60_to_80_years" weight="0.0044406" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_Over_80_years" weight="0.0155129" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.fertility" weight="56.6414" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_0_years" weight="37.2343" compare_name="Population.deaths_0_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_1_to_20_years" weight="22.524" compare_name="Population.deaths_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_20_to_40_years" weight="14.5233" compare_name="Population.deaths_20_to_40_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_40_to_60_years" weight="6.52565" compare_name="Population.deaths_40_to_60_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_60_to_80_years" weight="0.820878" compare_name="Population.deaths_60_to_80_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_Over_80_years" weight="1.48706" compare_name="Population.deaths_Over_80_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Births" weight="0.0281593" compare_name="Population.Births" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.total_deaths" weight="0.190124" compare_name="Population.total_deaths" compare_run="Calibration Data" tolerance="0" type="ls"/>
+		<isee:payoff_specs name="Population Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="-1">
+			<isee:payoff_element name="Population.Population" weight="0.000802415" compare_name="Population.Population" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_0_years" weight="0.0303451" compare_name="Population.Aged_0_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_1_to_20_years" weight="0.000251012" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_20_to_40_years" weight="0.00125008" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_40_to_60_years" weight="0.00353599" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_60_to_80_years" weight="0.0044406" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_Over_80_years" weight="0.0155129" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.fertility" weight="56.6414" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_0_years" weight="37.2343" compare_name="Population.deaths_0_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_1_to_20_years" weight="22.524" compare_name="Population.deaths_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_20_to_40_years" weight="14.5233" compare_name="Population.deaths_20_to_40_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_40_to_60_years" weight="6.52565" compare_name="Population.deaths_40_to_60_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_60_to_80_years" weight="0.820878" compare_name="Population.deaths_60_to_80_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_Over_80_years" weight="1.48706" compare_name="Population.deaths_Over_80_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Births" weight="0.0281593" compare_name="Population.Births" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.total_deaths" weight="0.190124" compare_name="Population.total_deaths" compare_run="-1" tolerance="0" type="ls"/>
 		</isee:payoff_specs>
-		<isee:payoff_specs name="Energy Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="Calibration Data">
+		<isee:payoff_specs name="Energy Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="-1">
 			<isee:payoff_element name="Energy.Fossil_Electricity_Capacity" weight="0.0000209585">
 				<isee:time_range type="terminal_value"/>
 			</isee:payoff_element>
@@ -273,7 +285,7 @@
 				<isee:time_range type="terminal_value"/>
 			</isee:payoff_element>
 		</isee:payoff_specs>
-		<isee:payoff_specs name="Climate Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="Calibration Data">
+		<isee:payoff_specs name="Climate Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="-1">
 			<isee:payoff_element name="Climate.CO2_concentration_in_atm_PPM" weight="0.267495">
 				<isee:time_range type="terminal_value"/>
 			</isee:payoff_element>
@@ -306,43 +318,42 @@
 			</isee:payoff_element>
 		</isee:payoff_specs>
 		<isee:payoff_specs name="Food and Land Use Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="Calibration Data">
-			<isee:payoff_element name="Food_and_land_use.Forest_land" weight="0.0136268">
-				<isee:time_range type="terminal_value"/>
-			</isee:payoff_element>
-			<isee:payoff_element name="Food_and_land_use.crop_production" weight="0.0000207084">
-				<isee:time_range type="terminal_value"/>
-			</isee:payoff_element>
-			<isee:payoff_element name="Food_and_land_use.fertilizer_use" weight="0.0272983">
+			<isee:payoff_element name="Food_and_land_use.crop_production" weight="0.0000140262" compare_name="Food_and_land_use.crop_production" compare_run="Calibration Data" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Food_and_land_use.fertilizer_use" weight="0.0147199" compare_name="Food_and_land_use.fertilizer_use" compare_run="Calibration Data" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Food_and_land_use.Cropland" weight="0.00356408" compare_name="Food_and_land_use.Cropland" compare_run="Calibration Data" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Food_and_land_use.livestock_production" weight="3.9172e-8" compare_name="Food_and_land_use.livestock_production" compare_run="Calibration Data" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Food_and_land_use.CO2_emissions_from_land_cover_change" weight="3.42217" compare_name="Food_and_land_use.CO2_emissions_from_land_cover_change" compare_run="Calibration Data" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Food_and_land_use.Forest_Land" weight="0.0558206">
 				<isee:time_range type="terminal_value"/>
 			</isee:payoff_element>
 		</isee:payoff_specs>
-		<isee:payoff_specs name="Full Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="Calibration Data">
-			<isee:payoff_element name="Supply.GDP" weight="1.44035e-7" compare_name="Supply.GDP" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.GDP_per_person" weight="8.34474" compare_name="Population.GDP_per_person" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Demand.government_spending" weight="0.000005664" compare_name="Demand.government_spending" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Demand.consumption_share_of_GDP" weight="13982.2" compare_name="Demand.consumption_share_of_GDP" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Demand.total_savings" weight="1.60283e-8" compare_name="Demand.total_savings" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Demand.savings_share_of_GDP" weight="30.9544" compare_name="Demand.savings_share_of_GDP" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Supply.investment_share_of_GDP" weight="15793.6" compare_name="Supply.investment_share_of_GDP" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Supply.investment_in_private_capital" weight="9.34363e-7" compare_name="Supply.investment_in_private_capital" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Labor.Workers_Share_of_Output" weight="34873.1" compare_name="Labor.Workers_Share_of_Output" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Labor.workforce" weight="0.000135572" compare_name="Labor.workforce" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Population" weight="0.000904767" compare_name="Population.Population" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_0_years" weight="0.0319165" compare_name="Population.Aged_0_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_1_to_20_years" weight="0.000279154" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_20_to_40_years" weight="0.0013313" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_40_to_60_years" weight="0.00367139" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_60_to_80_years" weight="0.00462041" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Aged_Over_80_years" weight="0.0147491" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.fertility" weight="60.6191" compare_name="Population.Aged_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_0_years" weight="30.5937" compare_name="Population.deaths_0_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_1_to_20_years" weight="18.2653" compare_name="Population.deaths_1_to_20_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_20_to_40_years" weight="14.0269" compare_name="Population.deaths_20_to_40_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_40_to_60_years" weight="7.18454" compare_name="Population.deaths_40_to_60_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_60_to_80_years" weight="0.872152" compare_name="Population.deaths_60_to_80_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.deaths_Over_80_years" weight="1.68044" compare_name="Population.deaths_Over_80_years" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.Births" weight="0.0295531" compare_name="Population.Births" compare_run="Calibration Data" tolerance="0" type="ls"/>
-			<isee:payoff_element name="Population.total_deaths" weight="0.210942" compare_name="Population.total_deaths" compare_run="Calibration Data" tolerance="0" type="ls"/>
+		<isee:payoff_specs name="Full Payoff" calibration="true" recompute_weights="true" compare_tolerance="0" compare_type="ls" compare_run="-1">
+			<isee:payoff_element name="Supply.GDP" weight="1.44035e-7" compare_name="Supply.GDP" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.GDP_per_person" weight="8.34474" compare_name="Population.GDP_per_person" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Demand.government_spending" weight="0.000005664" compare_name="Demand.government_spending" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Demand.consumption_share_of_GDP" weight="13982.2" compare_name="Demand.consumption_share_of_GDP" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Demand.total_savings" weight="1.60283e-8" compare_name="Demand.total_savings" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Demand.savings_share_of_GDP" weight="30.9544" compare_name="Demand.savings_share_of_GDP" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Supply.investment_share_of_GDP" weight="15793.6" compare_name="Supply.investment_share_of_GDP" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Supply.investment_in_private_capital" weight="9.34363e-7" compare_name="Supply.investment_in_private_capital" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Labor.Workers_Share_of_Output" weight="34873.1" compare_name="Labor.Workers_Share_of_Output" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Labor.workforce" weight="0.000135572" compare_name="Labor.workforce" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Population" weight="0.000904767" compare_name="Population.Population" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_0_years" weight="0.0319165" compare_name="Population.Aged_0_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_1_to_20_years" weight="0.000279154" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_20_to_40_years" weight="0.0013313" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_40_to_60_years" weight="0.00367139" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_60_to_80_years" weight="0.00462041" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Aged_Over_80_years" weight="0.0147491" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.fertility" weight="60.6191" compare_name="Population.Aged_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_0_years" weight="30.5937" compare_name="Population.deaths_0_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_1_to_20_years" weight="18.2653" compare_name="Population.deaths_1_to_20_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_20_to_40_years" weight="14.0269" compare_name="Population.deaths_20_to_40_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_40_to_60_years" weight="7.18454" compare_name="Population.deaths_40_to_60_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_60_to_80_years" weight="0.872152" compare_name="Population.deaths_60_to_80_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.deaths_Over_80_years" weight="1.68044" compare_name="Population.deaths_Over_80_years" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.Births" weight="0.0295531" compare_name="Population.Births" compare_run="-1" tolerance="0" type="ls"/>
+			<isee:payoff_element name="Population.total_deaths" weight="0.210942" compare_name="Population.total_deaths" compare_run="-1" tolerance="0" type="ls"/>
 			<isee:payoff_element name="Energy.Fossil_Electricity_Capacity" weight="0.0000148686">
 				<isee:time_range type="terminal_value"/>
 			</isee:payoff_element>
@@ -400,7 +411,7 @@
 			<isee:payoff_element name="Climate.Surface_Temperature_Anomaly" weight="141.263">
 				<isee:time_range type="terminal_value"/>
 			</isee:payoff_element>
-			<isee:payoff_element name="Food_and_land_use.Forest_land" weight="0.0136106">
+			<isee:payoff_element name="Food_and_land_use.Mature_Forest" weight="0.0136106">
 				<isee:time_range type="terminal_value"/>
 			</isee:payoff_element>
 			<isee:payoff_element name="Food_and_land_use.crop_production" weight="0.0000216028">
@@ -462,9 +473,6 @@
 		</unit>
 		<unit name="Mp">
 			<eqn>Million*p</eqn>
-		</unit>
-		<unit name="Mt redmeat">
-			<eqn>Million*t redmeat</eqn>
 		</unit>
 		<unit name="MtCO2">
 			<eqn>Million*tCO2</eqn>
@@ -548,10 +556,14 @@
 			<alias>yr</alias>
 			<alias>years</alias>
 		</unit>
+		<unit name="MKg">
+			<eqn>Million*kg</eqn>
+		</unit>
 	</model_units>
 	<model>
 		<variables>
 			<module name="Energy" isee:label="" url="r../FRIDA_Modules/Energy.itmx">
+				<format scale_by="auto"/>
 				<connect to='Climate."CO2_from_energy_and_industry_GtCO2/y"' from="Energy.CO2_from_energy_and_industry"/>
 				<connect2 to='Climate."CO2_from_energy_and_industry_GtCO2/y"' from="Energy.CO2_from_energy_and_industry"/>
 				<connect to='Supply."Cost_of_energy_G$/y_1"' from="Energy.cost_of_energy"/>
@@ -566,6 +578,7 @@
 				<connect2 to="Energy.Population_Mp" from="Population.Population"/>
 			</module>
 			<module name="Economy" isee:label="" url="r../FRIDA_Modules/Economy.itmx">
+				<format scale_by="auto"/>
 				<connect to='Demand."Effective_GDP_per_person_k$/p/y"' from="Population.effective_GDP_per_person"/>
 				<connect2 to='Demand."Effective_GDP_per_person_k$/p/y"' from="Population.effective_GDP_per_person"/>
 				<connect to='Demand."GDP_per_person_in_1980_k$/p/y"' from="Population.GDP_per_person_in_1980"/>
@@ -596,6 +609,7 @@
 				<connect2 to="Supply.Observed_warming_in_1980" from="Climate.Surface_Temperature_Anomaly_1980"/>
 			</module>
 			<module name="Environment" isee:label="">
+				<format scale_by="auto"/>
 				<connect to="Energy.Observed_warming_deg_C" from="Climate.Surface_Temperature_Anomaly"/>
 				<connect2 to="Energy.Observed_warming_deg_C" from="Climate.Surface_Temperature_Anomaly"/>
 				<connect to="Population.Observed_warming" from="Climate.Surface_Temperature_Anomaly"/>
@@ -614,6 +628,7 @@
 				<connect2 to="Food_and_land_use.Population" from="Population.Population"/>
 			</module>
 			<module name="Society" isee:label="">
+				<format scale_by="auto"/>
 				<connect to='Demand."Effective_GDP_per_person_k$/p/y"' from="Population.effective_GDP_per_person"/>
 				<connect2 to='Demand."Effective_GDP_per_person_k$/p/y"' from="Population.effective_GDP_per_person"/>
 				<connect to='Energy."GDP_per_person_k$/p/y"' from="Population.GDP_per_person"/>
@@ -648,7 +663,7 @@
 				<connect2 to="Population.Observed_warming_in_1980" from="Climate.Surface_Temperature_Anomaly_1980"/>
 			</module>
 			<isee:placeholder name="Calibrated Variables">
-				<eqn>Climate.Surface_Temperature_Anomaly + Supply.GDP + Population.GDP_per_person + Population.Population + Demand.government_spending + Demand.consumption_share_of_GDP + Demand.total_savings + Supply.investment_in_private_capital + Demand.savings_share_of_GDP + Supply.investment_share_of_GDP + Labor.Workers_Share_of_Output + Labor.Unemployment_Rate + Labor.workforce + Population.Aged_1_to_20_years + Population.Aged_20_to_40_years + Population.Aged_40_to_60_years + Population.Aged_60_to_80_years + Population.total_deaths + Population.Births + Population.fertility + Energy.renewable_electricity_production + Energy.fossil_electricity_production + Energy.Renewable_Electricity_Capacity + Energy.Fossil_Electricity_Capacity + Energy.electricity_production + Energy.demand_for_electricity + Energy.energy_use_per_person + Energy.CO2_from_energy_and_industry + Energy.CO2_emissions_per_person + Climate.CO2_emissions + Climate.CH4_emissions + Climate.N2O_emissions + Climate.CO2_concentration_in_atm_PPM + Climate.CH4_concentration_in_atm_PPM + Climate.N2O_concentration_in_atm_PPM + Climate.forcing_from_CO2 + Climate.forcing_from_CH4 + Climate.forcing_from_N2O + Food_and_land_use.Cropland + Food_and_land_use.Forest_land + Food_and_land_use.crop_production + Food_and_land_use.fertilizer_use</eqn>
+				<eqn>Climate.Surface_Temperature_Anomaly + Supply.GDP + Population.GDP_per_person + Population.Population + Demand.government_spending + Demand.consumption_share_of_GDP + Demand.total_savings + Supply.investment_in_private_capital + Demand.savings_share_of_GDP + Supply.investment_share_of_GDP + Labor.Workers_Share_of_Output + Labor.Unemployment_Rate + Labor.workforce + Population.Aged_1_to_20_years + Population.Aged_20_to_40_years + Population.Aged_40_to_60_years + Population.Aged_60_to_80_years + Population.total_deaths + Population.Births + Population.fertility + Energy.renewable_electricity_production + Energy.fossil_electricity_production + Energy.Renewable_Electricity_Capacity + Energy.Fossil_Electricity_Capacity + Energy.electricity_production + Energy.demand_for_electricity + Energy.energy_use_per_person + Energy.CO2_from_energy_and_industry + Energy.CO2_emissions_per_person + Climate.CO2_emissions + Climate.CH4_emissions + Climate.N2O_emissions + Climate.CO2_concentration_in_atm_PPM + Climate.CH4_concentration_in_atm_PPM + Climate.N2O_concentration_in_atm_PPM + Climate.forcing_from_CO2 + Climate.forcing_from_CH4 + Climate.forcing_from_N2O + Food_and_land_use.Cropland + Food_and_land_use.Mature_Forest + Food_and_land_use.crop_production + Food_and_land_use.fertilizer_use</eqn>
 			</isee:placeholder>
 		</variables>
 		<views>
@@ -677,6 +692,7 @@
 				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
 				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
 				<slider color="#66CC66" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:stacked_container color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
 				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
 				<isee:sim_speed_slider color="black" background="white"/>
 				<isee:time_slider color="#E95F74" background="silver"/>
@@ -697,7 +713,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="2" isee:page_rows="2" isee:scroll_x="299" isee:scroll_y="191" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="2" isee:page_rows="2" isee:scroll_x="18" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="11pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -781,7 +797,7 @@
 					<to>Society</to>
 				</connector>
 				<stacked_container uid="58" x="59" y="475" width="663" height="442">
-					<graph width="663" height="442" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="false" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
+					<graph width="663" height="442" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="false" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
 							<entity name="Calibrated_Variables"/>
 						</plot>
@@ -791,9 +807,11 @@
 				<isee:selector x="744" y="533" width="214" height="30" select_placeholder="true" placeholder="Calibrated_Variables"/>
 			</view>
 			<view background="white" page_width="1066" page_height="600" home_view="true" type="interface">
-				<style/>
+				<style>
+					<isee:stacked_container item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				</style>
 				<stacked_container x="217" y="75" width="426" height="308">
-					<graph width="426" height="308" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
+					<graph width="426" height="308" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
 							<entity name="Supply.GDP"/>
 						</plot>
@@ -812,7 +830,9 @@
 			</view>
 			<isee:templates>
 				<view background="white" page_width="1066" page_height="600" type="template">
-					<style/>
+					<style>
+						<isee:stacked_container item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+					</style>
 				</view>
 			</isee:templates>
 			<isee:stories/>
@@ -821,6 +841,7 @@
 	<model name="Environment">
 		<variables>
 			<module name="Climate" isee:label="" url="r../FRIDA_Modules/Climate.itmx">
+				<format scale_by="auto"/>
 				<connect to="Food_and_land_use.CO2_concentration_in_atm_ppm" from="Climate.CO2_concentration_in_atm_PPM"/>
 				<connect2 to="Food_and_land_use.CO2_concentration_in_atm_ppm" from="Climate.CO2_concentration_in_atm_PPM"/>
 				<connect to="Energy.Observed_warming_deg_C" from="Climate.Surface_Temperature_Anomaly"/>
@@ -847,6 +868,7 @@
 				<connect2 to='Climate."Fertilizer_use_Mt/y"' from="Food_and_land_use.fertilizer_use"/>
 			</module>
 			<module name="Food and\nland use" isee:label="" url="r../FRIDA_Modules/Food and land use.itmx">
+				<format scale_by="auto"/>
 				<connect to='Climate."CO2_emissions_from_LULUC_GtCO2/y"' from="Food_and_land_use.CO2_emissions_from_land_cover_change"/>
 				<connect2 to='Climate."CO2_emissions_from_LULUC_GtCO2/y"' from="Food_and_land_use.CO2_emissions_from_land_cover_change"/>
 				<connect to='Climate."Crop_supply_(after_20_%_waste)_Mt-crop/y"' from="Food_and_land_use.crop_production"/>
@@ -891,6 +913,7 @@
 				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
 				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
 				<slider color="#66CC66" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:stacked_container color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
 				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
 				<isee:sim_speed_slider color="black" background="white"/>
 				<isee:time_slider color="#E95F74" background="silver"/>
@@ -966,6 +989,7 @@
 	<model name="Society">
 		<variables>
 			<module name="Population" isee:label="" url="r../FRIDA_Modules/Population.itmx">
+				<format scale_by="auto"/>
 				<connect to='Demand."Effective_GDP_per_person_k$/p/y"' from="Population.effective_GDP_per_person"/>
 				<connect2 to='Demand."Effective_GDP_per_person_k$/p/y"' from="Population.effective_GDP_per_person"/>
 				<connect to='Energy."GDP_per_person_k$/p/y"' from="Population.GDP_per_person"/>
@@ -1026,6 +1050,7 @@
 				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
 				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
 				<slider color="#66CC66" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:stacked_container color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
 				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
 				<isee:sim_speed_slider color="black" background="white"/>
 				<isee:time_slider color="#E95F74" background="silver"/>
