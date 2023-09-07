@@ -369,7 +369,8 @@ Friedlingstein P, O&apos;Sullivan M, Jones MW, Andrew R M, Gregor L, Hauck J, Le
 				<units>%</units>
 			</aux>
 			<aux name="Albedo">
-				<eqn>(Forest_Land * Albedo_forest_land + Grassland * Albedo_grassland + Cropland * Albedo_cropland)/ (Forest_Land + Cropland + Grassland)</eqn>
+				<eqn>(Mature_Forest * Albedo_forest_land + Grassland * Albedo_grassland + Cropland * Albedo_cropland + Recovering_Forest *albedo_recovering_forest )
+/ (Mature_Forest + Cropland + Grassland + Recovering_Forest)</eqn>
 				<units>%</units>
 			</aux>
 			<stock name="Cropland">
@@ -655,6 +656,10 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<eqn>3</eqn>
 				<units>years</units>
 			</aux>
+			<aux name="albedo recovering forest">
+				<eqn>(Albedo_grassland+Albedo_forest_land)/2</eqn>
+				<units>%</units>
+			</aux>
 		</variables>
 		<views>
 			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
@@ -702,7 +707,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="4" isee:scroll_x="247.5" isee:scroll_y="727.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="4" isee:scroll_x="1766.25" isee:scroll_y="127.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="12.51pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -895,19 +900,19 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>normal_rate_of_CO2_absorption_in_forestry_land</from>
 					<to>per_ha_CO2_absorption_in_forestry_land</to>
 				</connector>
-				<aux x="2694.25" y="545.167" name="Albedo forest land"/>
-				<aux x="2774" y="599.5" name="Albedo cropland"/>
-				<aux x="2876.5" y="589.417" name="Albedo grassland"/>
+				<aux x="2946.75" y="576.417" name="Albedo forest land"/>
+				<aux x="2695.25" y="576.417" name="Albedo cropland"/>
+				<aux x="2826.75" y="609.25" name="Albedo grassland"/>
 				<aux x="2808.75" y="494.25" name="Albedo"/>
-				<connector uid="296" angle="23.9742">
+				<connector uid="296" angle="149.23">
 					<from>Albedo_forest_land</from>
 					<to>Albedo</to>
 				</connector>
-				<connector uid="298" angle="125.447">
+				<connector uid="298" angle="98.8959">
 					<from>Albedo_grassland</from>
 					<to>Albedo</to>
 				</connector>
-				<connector uid="301" angle="71.7285">
+				<connector uid="301" angle="35.9022">
 					<from>Albedo_cropland</from>
 					<to>Albedo</to>
 				</connector>
@@ -1273,11 +1278,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>Recovering_Forest</from>
 					<to>forest_completing_recovery</to>
 				</connector>
-				<aux x="2792" y="337.5" name="Forest Land"/>
-				<connector uid="445" angle="268.678">
-					<from>Forest_Land</from>
-					<to>Albedo</to>
-				</connector>
+				<aux x="2457" y="218.75" name="Forest Land"/>
 				<connector uid="448" angle="30.6507">
 					<from>
 						<alias uid="449"/>
@@ -1358,6 +1359,31 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>cropland_depleting</from>
 					<to>new_land_for_crops</to>
 				</connector>
+				<connector uid="470" angle="270">
+					<from>
+						<alias uid="471"/>
+					</from>
+					<to>Albedo</to>
+				</connector>
+				<connector uid="472" angle="351.027">
+					<from>
+						<alias uid="473"/>
+					</from>
+					<to>Albedo</to>
+				</connector>
+				<aux x="2958.75" y="472.75" name="albedo recovering forest"/>
+				<connector uid="474" angle="45.9602">
+					<from>Albedo_grassland</from>
+					<to>albedo_recovering_forest</to>
+				</connector>
+				<connector uid="475" angle="83.3971">
+					<from>Albedo_forest_land</from>
+					<to>albedo_recovering_forest</to>
+				</connector>
+				<connector uid="476" angle="188.157">
+					<from>albedo_recovering_forest</from>
+					<to>Albedo</to>
+				</connector>
 				<alias font_style="italic" uid="325" x="2881.25" y="355.25" width="45" height="35">
 					<of>Cropland</of>
 				</alias>
@@ -1384,6 +1410,12 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				</alias>
 				<alias font_style="italic" uid="459" x="2206.25" y="567.5" width="45" height="35">
 					<of>Mature_Forest</of>
+				</alias>
+				<alias font_style="italic" uid="471" x="2775" y="318.75" width="45" height="35">
+					<of>Mature_Forest</of>
+				</alias>
+				<alias font_style="italic" uid="473" x="2591.25" y="428.75" width="45" height="35">
+					<of>Recovering_Forest</of>
 				</alias>
 			</view>
 		</views>
