@@ -198,7 +198,7 @@ Ranasinghe R, Ruane AC, Vautard R, Arnell N, Coppola E, Cruz FA, Dessai S, Saifu
 the Average Crop Yield is bolstered slightly in comparison by the increasing concentration of CO2 in the atmosphere due to plantlife respiring CO2 (Kimball et al. 1983). 
 
 Kimball BA, Idso SB. 1983. Increasing atmospheric CO2: effects on crop yield, water use and climate. Agricultural water management 7(1-3): 55-72.</doc>
-				<eqn>average_crop_yield_in_1980*effect_of_fertilizer_use_on_crop_yield*net_effect_of_climate_on_crop_yield*effect_of_water_on_crop_yield</eqn>
+				<eqn>average_crop_yield_in_1980*effect_of_fertilizer_use_on_crop_yield*net_effect_of_climate_on_crop_yield*effect_of_water_on_crop_yield*effect_of_soil_carbon_on_crop_yield</eqn>
 				<units>tcrop/(ha*year)</units>
 			</aux>
 			<aux name="crop demand">
@@ -786,6 +786,56 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			<isee:placeholder name="calibration data">
 				<eqn>Food_and_land_use.Forest_Land + Food_and_land_use.Cropland + Food_and_land_use.crop_production + Food_and_land_use.livestock_production + Food_and_land_use.water_use + Food_and_land_use.fertilizer_use + Food_and_land_use.CO2_emissions_from_land_cover_change + Food_and_land_use.fraction_of_water_used_for_agriculture + Food_and_land_use.fraction_of_crops_for_livestock + Food_and_land_use.crop_balance + Food_and_land_use.livestock_balance</eqn>
 			</isee:placeholder>
+			<stock name="soil carbon">
+				<doc>https://www.nature.com/articles/s41467-023-39338-z</doc>
+				<eqn>2400</eqn>
+				<inflow>soil_carbon_restored</inflow>
+				<outflow>soil_carbon_released</outflow>
+				<units>GtC</units>
+			</stock>
+			<flow name="soil carbon\nreleased">
+				<eqn>soil_carbon_released_via_land_use_change+soil_carbon_released_via_agriculture</eqn>
+				<non_negative/>
+				<units>GtC/Year</units>
+			</flow>
+			<aux name="soil carbon released\nvia agriculture">
+				<eqn>crop_production*soil_carbon_used_per_Mtcrop</eqn>
+				<units>GtC/Year</units>
+			</aux>
+			<aux name="soil carbon\nused per Mtcrop">
+				<eqn>.0001</eqn>
+				<units>GtC/Mtcrop</units>
+			</aux>
+			<aux name="soil carbon released\nvia land use change">
+				<eqn>(clearing_forests_for_crops+clearing_forest_for_grassland)*soil_carbon_lost_per_mha_of_forest_cleared</eqn>
+				<units>GtC/Year</units>
+			</aux>
+			<aux name="soil carbon lost\nper mha of forest cleared">
+				<eqn>.1</eqn>
+				<units>GtC/Mha</units>
+			</aux>
+			<flow name="soil carbon\nrestored">
+				<eqn>soil_carbon_gained_via_land_use_change</eqn>
+				<non_negative/>
+				<units>GtC/Year</units>
+			</flow>
+			<aux name="soil carbon gained\nvia land use change">
+				<eqn>(reforesting_grassland+reforesting_cropland+afforestation)*soil_carbon_gained_per_mha_of_forest_recovered</eqn>
+				<units>GtC/Year</units>
+			</aux>
+			<aux name="soil carbon gained\nper mha of forest recovered">
+				<eqn>.1</eqn>
+				<units>GtC/Mha</units>
+			</aux>
+			<aux name="effect of soil carbon\non crop yield">
+				<eqn>(1 + sensitivity_of_crop_yield_to_soil_carbon * (soil_carbon/INIT(soil_carbon)-1))</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="sensitivity of\ncrop yield\nto soil carbon">
+				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
+				<eqn>0.220161189046909</eqn>
+				<units>dmnl</units>
+			</aux>
 		</variables>
 		<views>
 			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
@@ -833,7 +883,97 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="5" isee:scroll_x="796.25" isee:scroll_y="42.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+				<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+				<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+					<isee:series_styles>
+						<isee:series_style color="blue" thickness="1"/>
+						<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF7F00" thickness="1"/>
+						<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF007F" thickness="1"/>
+						<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#C8C8C8" thickness="1"/>
+					</isee:series_styles>
+				</graph>
+				<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
+				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
+				<slider color="#66CC66" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:sim_speed_slider color="black" background="white"/>
+				<isee:time_slider color="#E95F74" background="silver"/>
+				<isee:pie_input color="black" background="white" font_size="12pt" legend_position="bottom" isee:transparent="false"/>
+				<knob color="#66CC66" background="#E0E0E0" font_size="12pt" label_side="bottom" wrap_title="true"/>
+				<numeric_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<switch color="black" background="#E0E0E0" font_size="12pt" label_side="top" wrap_title="true" isee:appearance="switch" isee:on_color="green"/>
+				<options color="black" background="white" appearance="radio-buttons" arrangement="vertical"/>
+				<graphical_input color="black" background="#E0E0E0" font_size="12pt" isee:show_hover_tip="true"/>
+				<group_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<lamp color="black" background="white" font_size="9pt"/>
+				<gauge color="black" background="white" font_size="9pt" needle_color="#F09F72" bar_color="#EEEEEE" bar_progress_color="black" appearance="radial" num_major_ticks="11" num_minor_ticks="11" show_numeric_value="true"/>
+				<isee:spatial_map color="black" background="white" font_size="12pt"/>
+				<isee:animation_object color="black" background="white" font_size="12pt"/>
+				<isee:navigation_widget color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="6" appearance="tabs" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:shape color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid" opacity="1" transparent_background="true" corner_radius="1"/>
+				<isee:selector color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
+				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+			</style>
+			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+				<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+				<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+					<isee:series_styles>
+						<isee:series_style color="blue" thickness="1"/>
+						<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF7F00" thickness="1"/>
+						<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF007F" thickness="1"/>
+						<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#C8C8C8" thickness="1"/>
+					</isee:series_styles>
+				</graph>
+				<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
+				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
+				<slider color="#66CC66" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:sim_speed_slider color="black" background="white"/>
+				<isee:time_slider color="#E95F74" background="silver"/>
+				<isee:pie_input color="black" background="white" font_size="12pt" legend_position="bottom" isee:transparent="false"/>
+				<knob color="#66CC66" background="#E0E0E0" font_size="12pt" label_side="bottom" wrap_title="true"/>
+				<numeric_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<switch color="black" background="#E0E0E0" font_size="12pt" label_side="top" wrap_title="true" isee:appearance="switch" isee:on_color="green"/>
+				<options color="black" background="white" appearance="radio-buttons" arrangement="vertical"/>
+				<graphical_input color="black" background="#E0E0E0" font_size="12pt" isee:show_hover_tip="true"/>
+				<group_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<lamp color="black" background="white" font_size="9pt"/>
+				<gauge color="black" background="white" font_size="9pt" needle_color="#F09F72" bar_color="#EEEEEE" bar_progress_color="black" appearance="radial" num_major_ticks="11" num_minor_ticks="11" show_numeric_value="true"/>
+				<isee:spatial_map color="black" background="white" font_size="12pt"/>
+				<isee:animation_object color="black" background="white" font_size="12pt"/>
+				<isee:navigation_widget color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="6" appearance="tabs" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:shape color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid" opacity="1" transparent_background="true" corner_radius="1"/>
+				<isee:selector color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
+				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+			</style>
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="5" isee:scroll_x="466.25" isee:scroll_y="1152.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="12.51pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1623,9 +1763,9 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>sensitivity_of_crop_yield_to_water_availability</from>
 					<to>effect_of_water_on_crop_yield</to>
 				</connector>
-				<aux label_side="right" x="736.5" y="1305.75" name="water used per Mtcrop 1980"/>
+				<aux label_side="right" x="730.25" y="1340.25" name="water used per Mtcrop 1980"/>
 				<aux x="659.5" y="1323.75" name="water used per\nMtcrop"/>
-				<connector uid="497" angle="193.158">
+				<connector uid="497" angle="166.872">
 					<from>water_used_per_Mtcrop_1980</from>
 					<to>water_used_per_Mtcrop</to>
 				</connector>
@@ -1643,16 +1783,16 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<to>fraction_of_water_used_for_agriculture</to>
 				</connector>
 				<aux background="white" label_side="bottom" x="805.917" y="1901.5" name="rate of change\nin agricultural\nwater use efficiency"/>
-				<aux label_side="bottom" x="787.917" y="1769.75" name="effect of technology\non agricultural\nwater use efficiency"/>
-				<connector uid="501" angle="97.5091">
+				<aux label_side="bottom" x="759.167" y="1688.5" name="effect of technology\non agricultural\nwater use efficiency"/>
+				<connector uid="501" angle="105.283">
 					<from>effect_of_technology_on_agricultural_water_use_efficiency</from>
 					<to>water_used_per_Mtcrop</to>
 				</connector>
-				<connector uid="502" angle="97.7797">
+				<connector uid="502" angle="102.379">
 					<from>rate_of_change_in_agricultural_water_use_efficiency</from>
 					<to>effect_of_technology_on_agricultural_water_use_efficiency</to>
 				</connector>
-				<aux label_side="left" label_angle="225" x="317.25" y="1293.25" name="fraction of\nwater supply\navailable for consumption"/>
+				<aux label_side="left" label_angle="225" x="299.25" y="1299.25" name="fraction of\nwater supply\navailable for consumption"/>
 				<aux x="224.083" y="1209.25" name="effect of\nclimate\non water accessibility"/>
 				<connector uid="503" angle="2.7927">
 					<from>
@@ -1660,18 +1800,18 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					</from>
 					<to>effect_of_climate_on_water_accessibility</to>
 				</connector>
-				<connector uid="505" angle="271.469">
+				<connector uid="505" angle="300.92">
 					<from>
 						<alias uid="506"/>
 					</from>
 					<to>effect_of_climate_on_water_accessibility</to>
 				</connector>
-				<aux x="317.25" y="1156.58" name="sensitivity of effect of\nclimate\non water accessibility"/>
-				<connector uid="507" angle="209.479">
+				<aux x="317.25" y="1101.17" name="sensitivity of effect of\nclimate\non water accessibility"/>
+				<connector uid="507" angle="229.238">
 					<from>sensitivity_of_effect_of_climate_on_water_accessibility</from>
 					<to>effect_of_climate_on_water_accessibility</to>
 				</connector>
-				<connector uid="508" angle="350.679">
+				<connector uid="508" angle="352.018">
 					<from>normal_fraction_of_water_supply_available_for_consumption</from>
 					<to>fraction_of_water_supply_available_for_consumption</to>
 				</connector>
@@ -1679,7 +1819,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>effect_of_climate_on_water_accessibility</from>
 					<to>fraction_of_water_supply_available_for_consumption</to>
 				</connector>
-				<connector uid="510" angle="314.76">
+				<connector uid="510" angle="338.523">
 					<from>fraction_of_water_supply_available_for_consumption</from>
 					<to>agricultural_water_available</to>
 				</connector>
@@ -1706,6 +1846,97 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<to>average_crop_yield</to>
 				</connector>
 				<isee:placeholder x="1697.5" y="125" name="calibration data"/>
+				<stock x="1031.58" y="1822.5" name="soil carbon"/>
+				<flow x="1103.79" y="1821.25" name="soil carbon\nreleased">
+					<pts>
+						<pt x="1054.08" y="1821.25"/>
+						<pt x="1177.5" y="1821.25"/>
+					</pts>
+				</flow>
+				<aux x="1258.75" y="1901.5" name="soil carbon released\nvia agriculture"/>
+				<connector uid="517" angle="294.638">
+					<from>crop_production</from>
+					<to>soil_carbon_released_via_agriculture</to>
+				</connector>
+				<aux x="1267.5" y="2050" name="soil carbon\nused per Mtcrop"/>
+				<connector uid="518" angle="79.1145">
+					<from>soil_carbon_used_per_Mtcrop</from>
+					<to>soil_carbon_released_via_agriculture</to>
+				</connector>
+				<aux x="1088.88" y="2012.5" name="soil carbon released\nvia land use change"/>
+				<connector uid="521" angle="64.5663">
+					<from>
+						<alias uid="520"/>
+					</from>
+					<to>soil_carbon_released_via_land_use_change</to>
+				</connector>
+				<connector uid="522" angle="92.9621">
+					<from>
+						<alias uid="519"/>
+					</from>
+					<to>soil_carbon_released_via_land_use_change</to>
+				</connector>
+				<aux x="1217.5" y="2189.25" name="soil carbon lost\nper mha of forest cleared"/>
+				<connector uid="523" angle="126.044">
+					<from>soil_carbon_lost_per_mha_of_forest_cleared</from>
+					<to>soil_carbon_released_via_land_use_change</to>
+				</connector>
+				<connector uid="524" angle="85.5402">
+					<from>soil_carbon_released_via_land_use_change</from>
+					<to>soil_carbon_released</to>
+				</connector>
+				<connector uid="525" angle="152.301">
+					<from>soil_carbon_released_via_agriculture</from>
+					<to>soil_carbon_released</to>
+				</connector>
+				<flow x="960.792" y="1822.5" name="soil carbon\nrestored">
+					<pts>
+						<pt x="912.5" y="1822.5"/>
+						<pt x="1009.08" y="1822.5"/>
+					</pts>
+				</flow>
+				<aux x="831.25" y="2012.5" name="soil carbon gained\nvia land use change"/>
+				<connector uid="526" angle="35.5377">
+					<from>
+						<alias uid="527"/>
+					</from>
+					<to>soil_carbon_gained_via_land_use_change</to>
+				</connector>
+				<connector uid="528" angle="52.6867">
+					<from>
+						<alias uid="529"/>
+					</from>
+					<to>soil_carbon_gained_via_land_use_change</to>
+				</connector>
+				<connector uid="530" angle="129.401">
+					<from>
+						<alias uid="531"/>
+					</from>
+					<to>soil_carbon_gained_via_land_use_change</to>
+				</connector>
+				<aux x="842" y="2174.25" name="soil carbon gained\nper mha of forest recovered"/>
+				<connector uid="532" angle="93.8023">
+					<from>soil_carbon_gained_per_mha_of_forest_recovered</from>
+					<to>soil_carbon_gained_via_land_use_change</to>
+				</connector>
+				<connector uid="533" angle="64.5367">
+					<from>soil_carbon_gained_via_land_use_change</from>
+					<to>soil_carbon_restored</to>
+				</connector>
+				<aux x="1067.5" y="1713.75" name="effect of soil carbon\non crop yield"/>
+				<aux label_side="bottom" x="920.25" y="1713.75" name="sensitivity of\ncrop yield\nto soil carbon"/>
+				<connector uid="534" angle="352.093">
+					<from>sensitivity_of_crop_yield_to_soil_carbon</from>
+					<to>effect_of_soil_carbon_on_crop_yield</to>
+				</connector>
+				<connector uid="535" angle="69.8637">
+					<from>soil_carbon</from>
+					<to>effect_of_soil_carbon_on_crop_yield</to>
+				</connector>
+				<connector uid="536" angle="86.1859">
+					<from>effect_of_soil_carbon_on_crop_yield</from>
+					<to>average_crop_yield</to>
+				</connector>
 				<alias font_style="italic" uid="325" x="2881.25" y="355.25" width="45" height="35">
 					<of>Cropland</of>
 				</alias>
@@ -1745,11 +1976,26 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<alias uid="504" x="85.417" y="1169.17" width="18" height="18">
 					<of>Observed_warming_deg_C</of>
 				</alias>
-				<alias uid="506" x="197.083" y="1085.83" width="18" height="18">
+				<alias uid="506" x="127.083" y="1053.33" width="18" height="18">
 					<of>Observed_warming_in_1980</of>
 				</alias>
 				<alias font_style="italic" font_weight="bold" uid="515" x="496" y="1789.75" width="18" height="18">
 					<of>Population</of>
+				</alias>
+				<alias font_style="italic" uid="519" x="1091" y="2218.5" width="18" height="18">
+					<of>clearing_forest_for_grassland</of>
+				</alias>
+				<alias background="white" font_style="italic" uid="520" x="987.75" y="2203.08" width="21.3333" height="21.3333">
+					<of>clearing_forests_for_crops</of>
+				</alias>
+				<alias font_style="italic" uid="529" x="716.5" y="2142.25" width="18" height="18">
+					<of>reforesting_cropland</of>
+				</alias>
+				<alias font_style="italic" uid="527" x="698.5" y="2069.75" width="18" height="18">
+					<of>reforesting_grassland</of>
+				</alias>
+				<alias font_style="italic" uid="531" x="874.75" y="2093.5" width="18" height="18">
+					<of>afforestation</of>
 				</alias>
 			</view>
 		</views>
