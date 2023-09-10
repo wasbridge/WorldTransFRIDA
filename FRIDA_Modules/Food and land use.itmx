@@ -198,7 +198,7 @@ Ranasinghe R, Ruane AC, Vautard R, Arnell N, Coppola E, Cruz FA, Dessai S, Saifu
 the Average Crop Yield is bolstered slightly in comparison by the increasing concentration of CO2 in the atmosphere due to plantlife respiring CO2 (Kimball et al. 1983). 
 
 Kimball BA, Idso SB. 1983. Increasing atmospheric CO2: effects on crop yield, water use and climate. Agricultural water management 7(1-3): 55-72.</doc>
-				<eqn>average_crop_yield_in_1980*effect_of_fertilizer_use_on_crop_yield*net_effect_of_climate_on_crop_yield</eqn>
+				<eqn>average_crop_yield_in_1980*effect_of_fertilizer_use_on_crop_yield*net_effect_of_climate_on_crop_yield*effect_of_water_on_crop_yield</eqn>
 				<units>tcrop/(ha*year)</units>
 			</aux>
 			<aux name="crop demand">
@@ -223,7 +223,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 				<units>kgN/(ha*year)</units>
 			</aux>
 			<aux name="rate of change\nin fertilizer\nproductivity">
-				<eqn>0.000713248583986286</eqn>
+				<eqn>0.000621490579733172</eqn>
 				<units>1/year</units>
 			</aux>
 			<aux name="fertilizer productivity\nindex">
@@ -241,12 +241,12 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="sensitivity of surface temperature\nanomaly on average crop yield">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>-0.0641975341790834</eqn>
+				<eqn>-0.0638904466778075</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="sensitivity of CO2 concentration on\naverage crop yield">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.0589977232788627</eqn>
+				<eqn>0.0589650922352288</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="CO2 concentration in atm ppm" access="input">
@@ -277,7 +277,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="elasticity of crop demand\nfor direct consumption\nto GDP per person">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.382005679852753</eqn>
+				<eqn>0.381462143774333</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="Population" access="input">
@@ -286,7 +286,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="crop demand\nfor direct consumption\nper capita 1980">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.678813272776632*1.21768677508089</eqn>
+				<eqn>0.826581945009</eqn>
 				<units>Mtcrop/Mp/year</units>
 			</aux>
 			<aux name="Grassland 1980">
@@ -300,7 +300,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="sensitivity of\ncrop demand\non per ha\nfertilizer use">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.814576580044918</eqn>
+				<eqn>0.823354346684946</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="fertilizer use per ha\n1980">
@@ -313,7 +313,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="sensitivity of effect of crop\nbalance on crop land\nexpansion rate">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land &amp; crop production &amp; fertilizer use</doc>
-				<eqn>-0.163004594646317</eqn>
+				<eqn>-0.190010777520533</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="effect of crop balance on\ncrop land expansion">
@@ -344,12 +344,12 @@ Friedlingstein P, O&apos;Sullivan M, Jones MW, Andrew R M, Gregor L, Hauck J, Le
 			</aux>
 			<aux name="CO2 release per ha of\nforest cut">
 				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
-				<eqn>604.827333897486</eqn>
+				<eqn>587.682573963485</eqn>
 				<units>tCO2/ha</units>
 			</aux>
 			<aux name="normal rate of CO2 absorption in\nforestry land">
 				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
-				<eqn>0.920524447679033</eqn>
+				<eqn>0.923717048969347</eqn>
 				<units>tCO2/(ha*year)</units>
 			</aux>
 			<aux name="UNIT MtCO2/GtCO2">
@@ -424,7 +424,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="fraction of new\ncropland\nfrom forests">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>0.336092411327869</eqn>
+				<eqn>0.335930109845552</eqn>
 				<units>dmnl</units>
 			</aux>
 			<flow name="reforesting cropland">
@@ -446,7 +446,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>Mha/year</units>
 			</aux>
 			<aux name="fraction of depleting\ncropland to grassland">
-				<eqn>0.701749783756744</eqn>
+				<eqn>0.701763585388678</eqn>
 				<units>dmnl</units>
 			</aux>
 			<flow name="afforestation">
@@ -469,7 +469,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>dmnl</units>
 			</aux>
 			<aux name="fraction of grassland for grazing">
-				<eqn>0.719679217183395</eqn>
+				<eqn>0.719685754280304</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="grazing land">
@@ -486,12 +486,12 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="elasticity of livestock demand\nto GDP per person">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.346203740900849</eqn>
+				<eqn>0.345827586814001</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="livestock demand\nper capita 1980">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>28.2647082163389*1.11621515150511</eqn>
+				<eqn>31.5494955639</eqn>
 				<units>Mkg/Mp/year</units>
 			</aux>
 			<aux name="livestock demand">
@@ -537,7 +537,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>MKg/Mha/Year/Year</units>
 			</flow>
 			<aux name="normal rate\nof livestock intensification">
-				<eqn>0.00699377838589144</eqn>
+				<eqn>0.00699743567878226</eqn>
 				<units>1/year</units>
 			</aux>
 			<aux name="effect of livestock\nbalance on yield\nintensification">
@@ -546,7 +546,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="sensitivity of effect of livestock\nbalance on livestock yield">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land &amp; crop production &amp; fertilizer use</doc>
-				<eqn>-30</eqn>
+				<eqn>-29.6787368962889</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="effect of livestock balance\non grazing land">
@@ -555,7 +555,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="sensitivity of effect of livestock\nbalance on grassland\nexpansion rate">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land &amp; crop production &amp; fertilizer use</doc>
-				<eqn>-0.0393077628868532</eqn>
+				<eqn>-0.0392909209650854</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="indicated grazing land">
@@ -579,7 +579,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>Mtcrop/MKg</units>
 			</aux>
 			<aux name="sensitivity of\ncrops required for livestock\nto livestock yield">
-				<eqn>0.200963396612885</eqn>
+				<eqn>0.20165208512987</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="crop demand\nfor direct consumption">
@@ -596,7 +596,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="sensitivity of\ncrop yield\nto fertilizer use">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>1.37378125106364</eqn>
+				<eqn>1.52745836614044</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="perceived crop\ndemand">
@@ -653,13 +653,139 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>Mha</units>
 			</aux>
 			<aux name="cropland\nexpansion time">
-				<eqn>3</eqn>
+				<eqn>2.99973094619709</eqn>
 				<units>years</units>
 			</aux>
 			<aux name="albedo recovering forest">
 				<eqn>(Albedo_grassland+Albedo_forest_land)/2</eqn>
 				<units>%</units>
 			</aux>
+			<stock name="water supply">
+				<eqn>1000000000000000</eqn>
+				<inflow>water_recovery</inflow>
+				<inflow>natural_water_recharge</inflow>
+				<outflow>water_use</outflow>
+				<units>m^3</units>
+			</stock>
+			<flow name="water use">
+				<eqn>non_agricultural_water_use+agricultural_water_use</eqn>
+				<non_negative/>
+				<units>m^3/year</units>
+			</flow>
+			<flow name="water recovery">
+				<eqn>non_agricultural_water_recovery+agricultural_water_recovery</eqn>
+				<non_negative/>
+				<units>m^3/year</units>
+			</flow>
+			<aux name="elasticity of\nnon agricultural water use\nper capita to GDP per person">
+				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
+				<eqn>0.00511576208747257</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="non agricultural water\nuser 1980">
+				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
+				<eqn>158669180.642183</eqn>
+				<units>m^3/Mp/year</units>
+			</aux>
+			<aux name="non agricultural\nwater user\nper million person">
+				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
+				<eqn>((&quot;GDP_per_person_k$/p/y&quot;/INIT(&quot;GDP_per_person_k$/p/y&quot;))^elasticity_of_non_agricultural_water_use_per_capita_to_GDP_per_person)*non_agricultural_water_user_1980</eqn>
+				<units>m^3/Mp/year</units>
+			</aux>
+			<aux name="non agricultural\nwater use">
+				<eqn>Population*non_agricultural_water_user_per_million_person</eqn>
+				<units>m^3/year</units>
+			</aux>
+			<aux name="non agricultural\nwater recovery\npercentage">
+				<eqn>0.4</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="non agricultural\nwater recovery">
+				<eqn>non_agricultural_water_recovery_percentage*non_agricultural_water_use</eqn>
+				<units>m^3/year</units>
+			</aux>
+			<flow name="natural water\nrecharge">
+				<eqn>natural_water_recharge_1980*effect_of_surface_temperature_anomaly_on_natural_water_recharge</eqn>
+				<non_negative/>
+				<units>m^3/year</units>
+			</flow>
+			<aux name="agricultural water use">
+				<eqn>crop_production*water_used_per_Mtcrop</eqn>
+				<units>m^3/year</units>
+			</aux>
+			<aux name="agricultural water recovery\npercentage">
+				<eqn>0.2</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="agricultural water\nrecovery">
+				<eqn>agricultural_water_recovery_percentage*agricultural_water_use</eqn>
+				<units>m^3/year</units>
+			</aux>
+			<aux name="natural water\nrecharge 1980">
+				<eqn>720000000</eqn>
+				<units>m^3/year</units>
+			</aux>
+			<aux name="effect of surface temperature\nanomaly on natural water recharge">
+				<eqn>(1 + sensitivity_of_surface_temperature_anomaly_on_natural_water_recharge * (Observed_warming_deg_C/Observed_warming_in_1980-1))</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="sensitivity of surface temperature\nanomaly on natural water recharge">
+				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
+				<eqn>-0.0464762380396944</eqn>
+				<units>1</units>
+			</aux>
+			<aux name="agricultural\nwater available">
+				<eqn>fraction_of_water_supply_available_for_consumption*water_supply - non_agricultural_water_use</eqn>
+				<units>m^3/year</units>
+			</aux>
+			<aux name="normal fraction of\nwater supply\navailable for consumption">
+				<eqn>0.1</eqn>
+				<units>dmnl/year</units>
+			</aux>
+			<aux name="effect of water\non crop yield">
+				<eqn>(1 + sensitivity_of_crop_yield_to_water_availability * (agricultural_water_available/INIT(agricultural_water_available)-1))</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="sensitivity of\ncrop yield\nto water availability">
+				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
+				<eqn>0.220161189046909</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="water used per Mtcrop 1980">
+				<eqn>470802016.095344</eqn>
+				<units>m^3/Mtcrop</units>
+			</aux>
+			<aux name="water used per\nMtcrop">
+				<eqn>water_used_per_Mtcrop_1980*effect_of_technology_on_agricultural_water_use_efficiency</eqn>
+				<units>m^3/Mtcrop</units>
+			</aux>
+			<aux name="fraction of water\nused for agriculture">
+				<eqn>agricultural_water_use/water_use</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="rate of change\nin agricultural\nwater use efficiency">
+				<eqn>0.02</eqn>
+				<units>1/year</units>
+			</aux>
+			<aux name="effect of technology\non agricultural\nwater use efficiency">
+				<eqn>EXP(-(rate_of_change_in_agricultural_water_use_efficiency)*(TIME-1980))</eqn>
+				<units>1</units>
+			</aux>
+			<aux name="fraction of\nwater supply\navailable for consumption">
+				<eqn>normal_fraction_of_water_supply_available_for_consumption*effect_of_climate_on_water_accessibility</eqn>
+				<units>dmnl/year</units>
+			</aux>
+			<aux name="effect of\nclimate\non water accessibility">
+				<eqn>(1 + sensitivity_of_effect_of_climate_on_water_accessibility * (Observed_warming_deg_C/Observed_warming_in_1980-1))</eqn>
+				<units>dmnl</units>
+			</aux>
+			<aux name="sensitivity of effect of\nclimate\non water accessibility">
+				<eqn>-0.128065867428069</eqn>
+				<units>dmnl</units>
+			</aux>
+			<isee:placeholder name="calibration data">
+				<eqn>Food_and_land_use.Forest_Land + Food_and_land_use.Cropland + Food_and_land_use.crop_production + Food_and_land_use.livestock_production + Food_and_land_use.water_use + Food_and_land_use.fertilizer_use + Food_and_land_use.CO2_emissions_from_land_cover_change + Food_and_land_use.fraction_of_water_used_for_agriculture + Food_and_land_use.fraction_of_crops_for_livestock + Food_and_land_use.crop_balance + Food_and_land_use.livestock_balance</eqn>
+			</isee:placeholder>
 		</variables>
 		<views>
 			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
@@ -707,7 +833,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="4" isee:scroll_x="1766.25" isee:scroll_y="127.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="5" isee:scroll_x="796.25" isee:scroll_y="42.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="12.51pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -749,7 +875,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<aux label_side="left" x="967.75" y="643.167" name="crop demand"/>
 				<aux x="2702.5" y="1053.5" name="Crop Land 1980"/>
 				<aux label_side="top" x="883.25" y="1101.17" name="average crop yield"/>
-				<aux background="white" label_side="left" x="441.083" y="981.67" name="fertilizer use"/>
+				<aux background="white" label_side="left" x="448.583" y="852.92" name="fertilizer use"/>
 				<aux label_side="right" x="1029.75" y="911.75" name="crop production"/>
 				<aux label_side="bottom" x="1163.5" y="841.667" name="crop balance"/>
 				<aux label_side="top" x="1237" y="772.667" name="desired crop reserve capacity"/>
@@ -813,7 +939,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>effect_of_surface_temperature_anomaly_on_average_crop_yield</from>
 					<to>net_effect_of_climate_on_crop_yield</to>
 				</connector>
-				<aux background="white" x="242.167" y="1006" name="UNIT kgN/tN"/>
+				<aux background="white" x="234.667" y="877.25" name="UNIT kgN/tN"/>
 				<connector uid="226" angle="101.957">
 					<from>sensitivity_of_surface_temperature_anomaly_on_average_crop_yield</from>
 					<to>effect_of_surface_temperature_anomaly_on_average_crop_yield</to>
@@ -1198,19 +1324,19 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<to>crop_demand</to>
 				</connector>
 				<aux x="886.5" y="936.67" name="average crop yield in\n1980"/>
-				<connector uid="388" angle="75.2703">
+				<connector uid="388" angle="87.1179">
 					<from>
 						<alias uid="331"/>
 					</from>
 					<to>fertilizer_use</to>
 				</connector>
-				<connector uid="392" angle="6.97338">
+				<connector uid="392" angle="6.48872">
 					<from>&quot;UNIT_kgN/tN&quot;</from>
 					<to>fertilizer_use</to>
 				</connector>
 				<aux x="621.25" y="994.5" name="effect of fertilizer use\non crop yield"/>
-				<aux label_side="bottom" x="549" y="1145.42" name="sensitivity of\ncrop yield\nto fertilizer use"/>
-				<connector uid="401" angle="64.4181">
+				<aux label_side="bottom" x="454" y="1040.42" name="sensitivity of\ncrop yield\nto fertilizer use"/>
+				<connector uid="401" angle="15.3528">
 					<from>sensitivity_of_crop_yield_to_fertilizer_use</from>
 					<to>effect_of_fertilizer_use_on_crop_yield</to>
 				</connector>
@@ -1384,13 +1510,209 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<from>albedo_recovering_forest</from>
 					<to>Albedo</to>
 				</connector>
+				<stock x="294.917" y="1533.25" name="water supply"/>
+				<flow x="395.458" y="1532" name="water use">
+					<pts>
+						<pt x="317.417" y="1532"/>
+						<pt x="497.5" y="1532"/>
+					</pts>
+				</flow>
+				<flow x="183.083" y="1533.25" name="water recovery">
+					<pts>
+						<pt x="93.75" y="1533.25"/>
+						<pt x="272.417" y="1533.25"/>
+					</pts>
+				</flow>
+				<aux label_side="bottom" x="201.083" y="1977.67" name="elasticity of\nnon agricultural water use\nper capita to GDP per person"/>
+				<aux label_side="bottom" x="512.959" y="1984.42" name="non agricultural water\nuser 1980"/>
+				<aux label_side="right" label_angle="45" x="351.708" y="1880.17" name="non agricultural\nwater user\nper million person"/>
+				<connector uid="477" angle="90">
+					<from>
+						<alias uid="478"/>
+					</from>
+					<to>non_agricultural_water_user_per_million_person</to>
+				</connector>
+				<connector uid="479" angle="32.9152">
+					<from>elasticity_of_non_agricultural_water_use_per_capita_to_GDP_per_person</from>
+					<to>non_agricultural_water_user_per_million_person</to>
+				</connector>
+				<connector uid="480" angle="147.117">
+					<from>non_agricultural_water_user_1980</from>
+					<to>non_agricultural_water_user_per_million_person</to>
+				</connector>
+				<aux label_side="right" label_angle="315" x="346" y="1719.75" name="non agricultural\nwater use"/>
+				<connector uid="481" angle="92.0378">
+					<from>non_agricultural_water_user_per_million_person</from>
+					<to>non_agricultural_water_use</to>
+				</connector>
+				<aux x="110.083" y="1711" name="non agricultural\nwater recovery\npercentage"/>
+				<connector uid="482" angle="75.242">
+					<from>non_agricultural_water_use</from>
+					<to>water_use</to>
+				</connector>
+				<aux x="165.083" y="1639" name="non agricultural\nwater recovery"/>
+				<connector uid="483" angle="64.553">
+					<from>non_agricultural_water_recovery_percentage</from>
+					<to>non_agricultural_water_recovery</to>
+				</connector>
+				<connector uid="484" angle="149.868">
+					<from>non_agricultural_water_use</from>
+					<to>non_agricultural_water_recovery</to>
+				</connector>
+				<connector uid="485" angle="80.3398">
+					<from>non_agricultural_water_recovery</from>
+					<to>water_recovery</to>
+				</connector>
+				<flow label_side="left" x="294" y="1601.75" name="natural water\nrecharge">
+					<pts>
+						<pt x="294" y="1652.75"/>
+						<pt x="294" y="1550.75"/>
+					</pts>
+				</flow>
+				<aux x="413.458" y="1372.75" name="agricultural water use"/>
+				<connector uid="486" angle="263.551">
+					<from>agricultural_water_use</from>
+					<to>water_use</to>
+				</connector>
+				<aux x="58.3335" y="1372.75" name="agricultural water recovery\npercentage"/>
+				<aux x="194" y="1436.5" name="agricultural water\nrecovery"/>
+				<connector uid="487" angle="334.831">
+					<from>agricultural_water_recovery_percentage</from>
+					<to>agricultural_water_recovery</to>
+				</connector>
+				<connector uid="488" angle="196.198">
+					<from>agricultural_water_use</from>
+					<to>agricultural_water_recovery</to>
+				</connector>
+				<connector uid="489" angle="263.562">
+					<from>agricultural_water_recovery</from>
+					<to>water_recovery</to>
+				</connector>
+				<aux x="420.25" y="1646" name="natural water\nrecharge 1980"/>
+				<aux x="551.5" y="1601.75" name="effect of surface temperature\nanomaly on natural water recharge"/>
+				<connector uid="490" angle="177.252">
+					<from>effect_of_surface_temperature_anomaly_on_natural_water_recharge</from>
+					<to>natural_water_recharge</to>
+				</connector>
+				<connector uid="491" angle="152.784">
+					<from>natural_water_recharge_1980</from>
+					<to>natural_water_recharge</to>
+				</connector>
+				<aux x="664" y="1744.5" name="sensitivity of surface temperature\nanomaly on natural water recharge"/>
+				<connector uid="492" angle="133.498">
+					<from>sensitivity_of_surface_temperature_anomaly_on_natural_water_recharge</from>
+					<to>effect_of_surface_temperature_anomaly_on_natural_water_recharge</to>
+				</connector>
+				<aux x="339.917" y="1315.25" name="agricultural\nwater available"/>
+				<aux label_side="left" label_angle="225" x="128.083" y="1275.25" name="normal fraction of\nwater supply\navailable for consumption"/>
+				<connector uid="493" angle="78.3367">
+					<from>water_supply</from>
+					<to>agricultural_water_available</to>
+				</connector>
+				<connector uid="494" angle="91.2018">
+					<from>non_agricultural_water_use</from>
+					<to>agricultural_water_available</to>
+				</connector>
+				<aux x="507.75" y="1191.25" name="effect of water\non crop yield"/>
+				<connector uid="495" angle="36.4581">
+					<from>agricultural_water_available</from>
+					<to>effect_of_water_on_crop_yield</to>
+				</connector>
+				<aux label_side="bottom" x="420.25" y="1150.75" name="sensitivity of\ncrop yield\nto water availability"/>
+				<connector uid="496" angle="335.163">
+					<from>sensitivity_of_crop_yield_to_water_availability</from>
+					<to>effect_of_water_on_crop_yield</to>
+				</connector>
+				<aux label_side="right" x="736.5" y="1305.75" name="water used per Mtcrop 1980"/>
+				<aux x="659.5" y="1323.75" name="water used per\nMtcrop"/>
+				<connector uid="497" angle="193.158">
+					<from>water_used_per_Mtcrop_1980</from>
+					<to>water_used_per_Mtcrop</to>
+				</connector>
+				<connector uid="498" angle="175.946">
+					<from>water_used_per_Mtcrop</from>
+					<to>agricultural_water_use</to>
+				</connector>
+				<aux x="475.25" y="1459" name="fraction of water\nused for agriculture"/>
+				<connector uid="499" angle="305.744">
+					<from>agricultural_water_use</from>
+					<to>fraction_of_water_used_for_agriculture</to>
+				</connector>
+				<connector uid="500" angle="42.4549">
+					<from>water_use</from>
+					<to>fraction_of_water_used_for_agriculture</to>
+				</connector>
+				<aux background="white" label_side="bottom" x="805.917" y="1901.5" name="rate of change\nin agricultural\nwater use efficiency"/>
+				<aux label_side="bottom" x="787.917" y="1769.75" name="effect of technology\non agricultural\nwater use efficiency"/>
+				<connector uid="501" angle="97.5091">
+					<from>effect_of_technology_on_agricultural_water_use_efficiency</from>
+					<to>water_used_per_Mtcrop</to>
+				</connector>
+				<connector uid="502" angle="97.7797">
+					<from>rate_of_change_in_agricultural_water_use_efficiency</from>
+					<to>effect_of_technology_on_agricultural_water_use_efficiency</to>
+				</connector>
+				<aux label_side="left" label_angle="225" x="317.25" y="1293.25" name="fraction of\nwater supply\navailable for consumption"/>
+				<aux x="224.083" y="1209.25" name="effect of\nclimate\non water accessibility"/>
+				<connector uid="503" angle="2.7927">
+					<from>
+						<alias uid="504"/>
+					</from>
+					<to>effect_of_climate_on_water_accessibility</to>
+				</connector>
+				<connector uid="505" angle="271.469">
+					<from>
+						<alias uid="506"/>
+					</from>
+					<to>effect_of_climate_on_water_accessibility</to>
+				</connector>
+				<aux x="317.25" y="1156.58" name="sensitivity of effect of\nclimate\non water accessibility"/>
+				<connector uid="507" angle="209.479">
+					<from>sensitivity_of_effect_of_climate_on_water_accessibility</from>
+					<to>effect_of_climate_on_water_accessibility</to>
+				</connector>
+				<connector uid="508" angle="350.679">
+					<from>normal_fraction_of_water_supply_available_for_consumption</from>
+					<to>fraction_of_water_supply_available_for_consumption</to>
+				</connector>
+				<connector uid="509" angle="330.21">
+					<from>effect_of_climate_on_water_accessibility</from>
+					<to>fraction_of_water_supply_available_for_consumption</to>
+				</connector>
+				<connector uid="510" angle="314.76">
+					<from>fraction_of_water_supply_available_for_consumption</from>
+					<to>agricultural_water_available</to>
+				</connector>
+				<connector uid="511" angle="241.797">
+					<from>crop_production</from>
+					<to>agricultural_water_use</to>
+				</connector>
+				<connector uid="512" angle="253.252">
+					<from>Observed_warming_deg_C</from>
+					<to>effect_of_surface_temperature_anomaly_on_natural_water_recharge</to>
+				</connector>
+				<connector uid="513" angle="211.576">
+					<from>Observed_warming_in_1980</from>
+					<to>effect_of_surface_temperature_anomaly_on_natural_water_recharge</to>
+				</connector>
+				<connector uid="514" angle="153.435">
+					<from>
+						<alias uid="515"/>
+					</from>
+					<to>non_agricultural_water_use</to>
+				</connector>
+				<connector uid="516" angle="13.6612">
+					<from>effect_of_water_on_crop_yield</from>
+					<to>average_crop_yield</to>
+				</connector>
+				<isee:placeholder x="1697.5" y="125" name="calibration data"/>
 				<alias font_style="italic" uid="325" x="2881.25" y="355.25" width="45" height="35">
 					<of>Cropland</of>
 				</alias>
 				<alias font_style="italic" uid="327" x="2676.75" y="360.25" width="45" height="35">
 					<of>Grassland</of>
 				</alias>
-				<alias font_style="italic" uid="331" x="382.5" y="1101.42" width="45" height="35">
+				<alias font_style="italic" uid="331" x="421.25" y="931.42" width="45" height="35">
 					<of>Cropland</of>
 				</alias>
 				<alias font_style="italic" uid="375" x="1438.5" y="929.375" width="18" height="18">
@@ -1416,6 +1738,18 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				</alias>
 				<alias font_style="italic" uid="473" x="2591.25" y="428.75" width="45" height="35">
 					<of>Recovering_Forest</of>
+				</alias>
+				<alias uid="478" x="342.708" y="1990" width="18" height="18">
+					<of>&quot;GDP_per_person_k$/p/y&quot;</of>
+				</alias>
+				<alias uid="504" x="85.417" y="1169.17" width="18" height="18">
+					<of>Observed_warming_deg_C</of>
+				</alias>
+				<alias uid="506" x="197.083" y="1085.83" width="18" height="18">
+					<of>Observed_warming_in_1980</of>
+				</alias>
+				<alias font_style="italic" font_weight="bold" uid="515" x="496" y="1789.75" width="18" height="18">
+					<of>Population</of>
 				</alias>
 			</view>
 		</views>
