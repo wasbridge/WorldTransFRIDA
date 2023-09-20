@@ -223,7 +223,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 				<units>kgN/(ha*year)</units>
 			</aux>
 			<aux name="rate of change\nin fertilizer\nproductivity">
-				<eqn>0.000102182768378938</eqn>
+				<eqn>0.0000385323338309115</eqn>
 				<units>1/year</units>
 			</aux>
 			<aux name="fertilizer productivity\nindex">
@@ -241,12 +241,12 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="sensitivity of surface temperature\nanomaly on average crop yield">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>-0.0609836696802289</eqn>
+				<eqn>-0.0603475611378552</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="sensitivity of CO2 concentration on\naverage crop yield">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.0597542054801395</eqn>
+				<eqn>0.061260538003541</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="CO2 concentration in atm ppm" access="input">
@@ -277,7 +277,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="elasticity of crop demand\nfor direct consumption\nto GDP per person">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.374050321432129</eqn>
+				<eqn>0.374049320815491</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="Population" access="input">
@@ -300,7 +300,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="elasticity of\ncrop demand\non per ha\nfertilizer use">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.828832964704175</eqn>
+				<eqn>0.859268945147578</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="fertilizer use per ha\n1980">
@@ -313,7 +313,7 @@ Breier, J. (2023). Regionalisation of FAO &amp; Hyde data (Version 0.1.0) [Compu
 			</aux>
 			<aux name="sensitivity of effect of crop\nbalance on crop land\nexpansion rate">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land &amp; crop production &amp; fertilizer use</doc>
-				<eqn>-0.134619379592658</eqn>
+				<eqn>-0.110837575647892</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="effect of crop balance on\ncrop land expansion">
@@ -344,12 +344,12 @@ Friedlingstein P, O&apos;Sullivan M, Jones MW, Andrew R M, Gregor L, Hauck J, Le
 			</aux>
 			<aux name="CO2 release per ha of\nforest cut">
 				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
-				<eqn>586.608730411459</eqn>
+				<eqn>588.328863607232</eqn>
 				<units>tCO2/ha</units>
 			</aux>
 			<aux name="normal rate of CO2 absorption in\nforestry land">
 				<doc>Calibration Parameter: CO2 emissions from land cover change</doc>
-				<eqn>0.915054823152631</eqn>
+				<eqn>0.924988542149748</eqn>
 				<units>tCO2/(ha*year)</units>
 			</aux>
 			<aux name="UNIT MtCO2/GtCO2">
@@ -424,7 +424,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="fraction of new\ncropland\nfrom forests">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land</doc>
-				<eqn>0.334550040181207</eqn>
+				<eqn>0.333169131544362</eqn>
 				<units>dmnl</units>
 			</aux>
 			<flow name="reforesting cropland">
@@ -446,7 +446,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>Mha/year</units>
 			</aux>
 			<aux name="fraction of depleting\ncropland to grassland">
-				<eqn>0.704670286042069</eqn>
+				<eqn>0.704506643307424</eqn>
 				<units>dmnl</units>
 			</aux>
 			<flow name="afforestation">
@@ -469,7 +469,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>dmnl</units>
 			</aux>
 			<aux name="fraction of grassland for grazing">
-				<eqn>0.719621402020538</eqn>
+				<eqn>0.719631318065639</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="grazing land">
@@ -486,7 +486,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="elasticity of livestock demand\nto GDP per person">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.345412927750497</eqn>
+				<eqn>0.346165862164484</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="livestock demand\nper capita 1980">
@@ -537,7 +537,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>MKg/Mha/Year/Year</units>
 			</flow>
 			<aux name="normal rate\nof livestock intensification">
-				<eqn>0.00714497894170958</eqn>
+				<eqn>0.0072837957294808</eqn>
 				<units>1/year</units>
 			</aux>
 			<aux name="effect of livestock\nbalance on yield\nintensification">
@@ -546,7 +546,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="sensitivity of effect of livestock\nbalance on livestock yield">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land &amp; crop production &amp; fertilizer use</doc>
-				<eqn>-29.6070248104136</eqn>
+				<eqn>-29.576450729503</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="effect of livestock balance\non grazing land">
@@ -555,7 +555,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="sensitivity of effect of livestock\nbalance on grassland\nexpansion rate">
 				<doc>Calibration Parameter: forest land &amp; CO2 emissions from land cover change &amp; agricultural land &amp; crop production &amp; fertilizer use</doc>
-				<eqn>-0.0394427109080913</eqn>
+				<eqn>-0.0395503624912126</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="indicated grazing land">
@@ -579,7 +579,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>Mtcrop/MKg</units>
 			</aux>
 			<aux name="elasticity of\ncrops required for livestock\nto livestock yield">
-				<eqn>0.244457021244817</eqn>
+				<eqn>0.244548226739129</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="crop demand\nfor direct consumption">
@@ -591,12 +591,12 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>tcrop/(ha*year)</units>
 			</aux>
 			<aux name="effect of fertilizer use\non crop yield">
-				<eqn>(1 + sensitivity_of_crop_yield_to_fertilizer_use * (fertilizer_use_per_ha/INIT(fertilizer_use_per_ha)-1))</eqn>
+				<eqn>(fertilizer_use_per_ha/INIT(fertilizer_use_per_ha))^elasticity_of_crop_yield_to_fertilizer_use</eqn>
 				<units>dmnl</units>
 			</aux>
-			<aux name="sensitivity of\ncrop yield\nto fertilizer use">
+			<aux name="elasticity of\ncrop yield\nto fertilizer use">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>1.55803687080981</eqn>
+				<eqn>1.28870505579844</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="perceived crop\ndemand">
@@ -653,7 +653,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>Mha</units>
 			</aux>
 			<aux name="cropland\nexpansion time">
-				<eqn>2.99959338964391</eqn>
+				<eqn>2.99876560807254</eqn>
 				<units>years</units>
 			</aux>
 			<aux name="albedo recovering forest">
@@ -679,12 +679,12 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</flow>
 			<aux name="elasticity of\nnon agricultural water use\nper capita to GDP per person">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.0129401626482605</eqn>
+				<eqn>0.00764514398092732</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="non agricultural water\nuser 1980">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>155370590.010717</eqn>
+				<eqn>159816900.359561</eqn>
 				<units>m^3/Mp/year</units>
 			</aux>
 			<aux name="non agricultural\nwater use\nper million person">
@@ -731,7 +731,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="sensitivity of surface temperature\nanomaly on natural water recharge">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>-0.0564640835867452</eqn>
+				<eqn>-0.0629737213662423</eqn>
 				<units>1</units>
 			</aux>
 			<aux name="agricultural\nwater available">
@@ -748,11 +748,11 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 			</aux>
 			<aux name="elasticity of\ncrop yield to agricultural water available">
 				<doc>Calibration Parameter: fertilizer use &amp; crop production</doc>
-				<eqn>0.202679909493285</eqn>
+				<eqn>0.212156563903468</eqn>
 				<units>dmnl</units>
 			</aux>
 			<aux name="water used per Mtcrop 1980">
-				<eqn>468197087.099306</eqn>
+				<eqn>473248829.198678</eqn>
 				<units>m^3/Mtcrop</units>
 			</aux>
 			<aux name="water used per\nMtcrop">
@@ -764,7 +764,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>dmnl</units>
 			</aux>
 			<aux name="rate of change\nin agricultural\nwater use efficiency">
-				<eqn>0.02</eqn>
+				<eqn>0.0199928941852762</eqn>
 				<units>1/year</units>
 			</aux>
 			<aux name="effect of technology\non agricultural\nwater use efficiency">
@@ -780,7 +780,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<units>dmnl</units>
 			</aux>
 			<aux name="sensitivity of effect of\nclimate\non water accessibility">
-				<eqn>-0.0737973067795409</eqn>
+				<eqn>-0.061107863048323</eqn>
 				<units>dmnl</units>
 			</aux>
 			<isee:placeholder name="calibration data">
@@ -883,7 +883,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="5" isee:scroll_x="512.5" isee:scroll_y="726.25" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="5" isee:scroll_x="1277.5" zoom="120" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="12.51pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1385,9 +1385,9 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 					<to>fertilizer_use</to>
 				</connector>
 				<aux x="621.25" y="994.5" name="effect of fertilizer use\non crop yield"/>
-				<aux label_side="bottom" x="454" y="1040.42" name="sensitivity of\ncrop yield\nto fertilizer use"/>
+				<aux label_side="bottom" x="454" y="1040.42" name="elasticity of\ncrop yield\nto fertilizer use"/>
 				<connector uid="401" angle="15.3528">
-					<from>sensitivity_of_crop_yield_to_fertilizer_use</from>
+					<from>elasticity_of_crop_yield_to_fertilizer_use</from>
 					<to>effect_of_fertilizer_use_on_crop_yield</to>
 				</connector>
 				<aux x="853.5" y="700.667" name="perceived crop\ndemand"/>
