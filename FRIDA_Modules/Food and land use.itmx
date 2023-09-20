@@ -5,9 +5,9 @@
 		<name>Food and land use</name>
 		<uuid>1ce42919-b116-4c1c-a487-83c4df48992b</uuid>
 		<vendor>isee systems, inc.</vendor>
-		<product version="3.4.1" isee:build_number="3048" isee:saved_by_v1="true" lang="en">Stella Architect</product>
+		<product version="3.3" isee:build_number="2953" isee:saved_by_v1="true" lang="en">Stella Architect</product>
 	</header>
-	<sim_specs isee:sim_duration="0" isee:run_prefix="Run" isee:simulation_delay="0" isee:restore_on_start="false" isee:save_interval="1" method="Euler" time_units="Year" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="false" isee:loop_scores="false" isee:loop_exhaustive_allowed="1000">
+	<sim_specs isee:sim_duration="0" isee:run_prefix="Run" isee:simulation_delay="0" isee:restore_on_start="false" isee:save_interval="1" method="Euler" time_units="Year" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:loop_scores="false" isee:loop_exhaustive_allowed="1000">
 		<start>1980</start>
 		<stop>2100</stop>
 		<dt reciprocal="true">8</dt>
@@ -393,7 +393,7 @@ Food and Agriculture Organization of the United Nations (2023)</doc>
 				<units>Mha</units>
 			</stock>
 			<flow name="clearing forests\nfor crops">
-				<eqn>new_land_for_crops*fraction_of_new_cropland_from_forests</eqn>
+				<eqn>MIN(Mature_Forest/DT,  new_land_for_crops*fraction_of_new_cropland_from_forests)</eqn>
 				<non_negative/>
 				<units>Mha/Year</units>
 			</flow>
@@ -414,7 +414,7 @@ Edgerton MD. 2009. Increasing crop productivity to meet global needs for feed, f
 Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, and the looming land scarcity. Proceedings of the national academy of sciences 108(9): 3465-3472. https://doi.org/10.1073/pnas.1100480108.
 
 </doc>
-				<eqn>new_land_for_crops*(1-fraction_of_new_cropland_from_forests)</eqn>
+				<eqn>MIN(Grassland/DT,  new_land_for_crops*(1-fraction_of_new_cropland_from_forests))</eqn>
 				<non_negative/>
 				<units>Mha/year</units>
 			</flow>
@@ -883,7 +883,7 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="5" isee:scroll_x="1277.5" zoom="120" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="5" isee:scroll_x="185" isee:scroll_y="850" zoom="120" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="12.51pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1846,6 +1846,14 @@ Lambin EF, Meyfroidt P. 2011. Global land use change, economic globalization, an
 				<connector uid="536" angle="86.1859">
 					<from>effect_of_soil_carbon_on_crop_yield</from>
 					<to>average_crop_yield</to>
+				</connector>
+				<connector uid="537" angle="312.815">
+					<from>Mature_Forest</from>
+					<to>clearing_forests_for_crops</to>
+				</connector>
+				<connector uid="538" angle="91.7191">
+					<from>Grassland</from>
+					<to>clearing_grassland</to>
 				</connector>
 				<alias font_style="italic" uid="325" x="2881.25" y="355.25" width="45" height="35">
 					<of>Cropland</of>
